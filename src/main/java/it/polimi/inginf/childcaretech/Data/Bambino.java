@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import javax.print.Doc;
 import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -62,7 +63,7 @@ public class Bambino implements Serializable { //implementando serializable può
     @NotNull
     @ManyToOne
     @JoinColumn(name="IDSpecialista")
-    private Specialista specialista;
+    private Doctor specialista;
 
     /*public class Province {
 
