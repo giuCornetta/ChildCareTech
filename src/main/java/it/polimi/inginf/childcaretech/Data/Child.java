@@ -61,7 +61,7 @@ public class Child implements Serializable { //implementando serializable può e
     @NotNull
     @ManyToOne
     @JoinColumn(name="ID_Doctor")
-    private Doctor idDoctor;
+    private Doctor doctor;
 
     /*public class Province {
 

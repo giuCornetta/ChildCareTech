@@ -30,9 +30,13 @@ function Medico(props) {
 }
 
 function Contatti(props) {
-    return (
-        <View style={[globalStyle.container, style.container2]}><Text style={style.subTitle}>Contacts</Text>{props.contacts.map((c, i) => contactNameAndCF(c, i, "Contacts " + (i+1)))}</View>
-    );
+    if(props.contacts) {
+        return (
+            <View style={[globalStyle.container, style.container2]}><Text
+                style={style.subTitle}>Contacts</Text>{props.contacts.map((c, i) => contactNameAndCF(c, i, "Contacts " + (i + 1)))}
+            </View>
+        );
+    }
 }
 
 function Dettagli(props) {
@@ -48,21 +52,21 @@ const Allergie = (props) => {
     return (<Text style={globalStyle.reminder}>INSERIRE ALLERGIE</Text>);
 }
 
-const ChildDetails = ({bambino}) => {
+const ChildDetails = ({child}) => {
 
     const [contatti, setContatti] = useState([]);
-    useEffect( Fetch ('/anagrafica/contacts/' + bambino.id, setContatti), []);
+    useEffect( Fetch ('/anagrafica/contacts/' + child.id, setContatti), []);
 
     return (
         <View style={globalStyle.container}>
             <TouchableOpacity onPress={() => {window.open("/anagrafica", "_self")}} style={[globalStyle.button, globalStyle.rightSideButton]}>
                 <Text>Go back to Anagrafica</Text>
             </TouchableOpacity>
-            <Text style={globalStyle.title}>{bambino.name} {bambino.surname}'s contacts Page</Text>
-            <Dettagli child={bambino}/>
-            <Genitori parent1={bambino.parent1} parent2={bambino.parent2}/>
+            <Text style={globalStyle.title}>{child.name} {child.surname}'s contacts Page</Text>
+            <Dettagli child={child}/>
+            <Genitori parent1={child.parent1} parent2={child.parent2}/>
             <Contatti contacts={contatti}/>
-            <Medico doctor={bambino.specialista}/>
+            <Medico doctor={child.doctor}/>
         </View>
     );
 };

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {View, Text, TouchableOpacity, Pressable} from "react-native-web"
 import { Fetch } from './networkUtils.js'
-import { ContattiBambino } from "./contatti.js";
+import { ChildDetails } from "./contatti.js";
 import { root } from "./entryPoint.js";
 import { globalStyle } from "./globalStyle.js";
 
@@ -28,7 +28,7 @@ const Anagrafica = () => {
 //<Button title="Go back to Home" onPress={ () => {window.open("/", "_self")}}/>
 
 const pressedChild = (child) => {
-    root.render(<ContattiBambino bambino={child} />);
+    root.render(<ChildDetails child={child} />);
 }
 
 const TableRow = ({child}) => {

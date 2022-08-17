@@ -14,6 +14,7 @@ import javax.persistence.Id;
 @RequiredArgsConstructor //Generates a Constructor with required arguments
 @NoArgsConstructor /*Lombok @RequiredArgsConstructor will not generate any argument for: Non-final fields. Initialized final fields. static fields. Initialized non-null fields.*/
 public class Doctor {
+
     @Id
     private int id;
     @NotNull
@@ -30,5 +31,6 @@ public class Doctor {
     private String telephone;
     @Nullable
     private String address;
+
 }
 
