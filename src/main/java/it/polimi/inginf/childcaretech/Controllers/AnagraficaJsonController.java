@@ -26,8 +26,8 @@ public class AnagraficaJsonController {
         return  childRepository.findAll();
     }
 
-    @GetMapping("/contacts/{id}")
-    public Iterable<Contatto> contatti(@PathVariable("id") int id){
-        return contactRepo.findByCodBambino(id);
+    @GetMapping("/contacts/{childId}")
+    public Iterable<Contatto> contacts(@PathVariable("childId") int childId){
+        return contactRepo.findByCodBambino(childId);
     }
 }
