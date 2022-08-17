@@ -8,6 +8,7 @@ import javax.persistence.Id;
 
 @Data
 @Entity
+//fixme
 public class Staff {
 
     @Id

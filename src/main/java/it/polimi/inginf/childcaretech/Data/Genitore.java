@@ -15,6 +15,7 @@ import javax.persistence.Table;
 @RequiredArgsConstructor //Generates a Constructor with required arguments
 @NoArgsConstructor /*Lombok @RequiredArgsConstructor will not generate any argument for: Non-final fields. Initialized final fields. static fields. Initialized non-null fields.*/
 public class Genitore {
+
     @Id
     private int id;
     @NotNull

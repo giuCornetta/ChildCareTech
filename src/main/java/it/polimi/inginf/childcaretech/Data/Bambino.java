@@ -41,12 +41,14 @@ public class Bambino implements Serializable { //implementando serializable può
     @NotNull
     private String indirizzo;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "IDGenitore1")
     private Genitore genitore1;
 
     @ManyToOne
     @JoinColumn(name="IDGenitore2")
+    @Nullable
     private Genitore genitore2;
 
     /*@NotNull
@@ -57,6 +59,7 @@ public class Bambino implements Serializable { //implementando serializable può
     @Column(name="IDGenitore2")
     private Integer idGenitore2; //has to be Integer because can be null*/
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name="IDSpecialista")
     private Specialista specialista;

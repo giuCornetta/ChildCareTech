@@ -28,7 +28,6 @@ public class AnagraficaJsonController {
 
     @GetMapping("/contacts/{id}")
     public Iterable<Contatto> contatti(@PathVariable("id") int id){
-        //TODO findByCodBambino?
         return contactRepo.findByCodBambino(id);
     }
 }
