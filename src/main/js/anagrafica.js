@@ -35,8 +35,8 @@ const TableRow = ({child}) => {
     return (
         <View style={globalStyle.row}>
             <Pressable onPress={() => pressedChild(child)} style={globalStyle.row}>
-                <View style={globalStyle.cell}><Text>{child.nome}</Text></View>
-                <View style={globalStyle.cell}><Text>{child.cognome}</Text></View>
+                <View style={globalStyle.cell}><Text>{child.name}</Text></View>
+                <View style={globalStyle.cell}><Text>{child.surname}</Text></View>
                 <View style={globalStyle.cell}><Text>{child.dob}</Text></View>
             </Pressable>
         </View>
@@ -46,8 +46,8 @@ const TableRow = ({child}) => {
 const TableHeader = () => {
     return (
         <View style={globalStyle.row}>
-            <View style={[globalStyle.cell, globalStyle.header]}><Text>Nome</Text></View>
-            <View style={[globalStyle.cell, globalStyle.header]}><Text>Cognome</Text></View>
+            <View style={[globalStyle.cell, globalStyle.header]}><Text>Name</Text></View>
+            <View style={[globalStyle.cell, globalStyle.header]}><Text>Surname</Text></View>
             <View style={[globalStyle.cell, globalStyle.header]}><Text>dob</Text></View>
         </View>
     )

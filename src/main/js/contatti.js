@@ -5,25 +5,25 @@ import {globalStyle} from "./globalStyle.js";
 
 const contactNameAndCF = (contact, i, type) => {
     return (<Text key={i}>
-        {type}: {contact.nome} {contact.cognome} ({contact.cf})
+        {type}: {contact.name} {contact.surname} ({contact.cf})
     </Text>);
 }
 
 const Genitori = (props) => {
     let genitoriTags = [];
-    genitoriTags[0] = contactNameAndCF(props.genitore1, 0, "Genitore 1");
-    if(props.genitore2)
-        genitoriTags[1] = contactNameAndCF(props.genitore2, 1, "Genitore 2");
+    genitoriTags[0] = contactNameAndCF(props.parent1, 0, "Parent 1");
+    if(props.parent2)
+        genitoriTags[1] = contactNameAndCF(props.parent2, 1, "Parent 2");
     return (<View style={[globalStyle.container, style.container2]}><Text style={style.subTitle}>Genitori</Text>{genitoriTags}</View>);
 };
 //TODO aggiungere keys
 //aggiungere telefoni genitori
 function Medico(props) {
     return (
-        <View style={[globalStyle.container, style.container2]}><Text style={style.subTitle}>Specialista</Text>
-            {contactNameAndCF(props.specialista, 0, "Specialista")}
-        <Text>Telefono: {props.specialista.telefono}</Text>
-            <TouchableOpacity onPress={() => {window.open("/visite/prenota/" + props.specialista.id, "_self")}} style={[globalStyle.button, globalStyle.reminderButton, globalStyle.centerButton, style.bookVisit]}>
+        <View style={[globalStyle.container, style.container2]}><Text style={style.subTitle}>Doctor</Text>
+            {contactNameAndCF(props.doctor, 0, "Doctor")}
+        <Text>Telefono: {props.doctor.telephone}</Text>
+            <TouchableOpacity onPress={() => {window.open("/visits/book/" + props.doctor.id, "_self")}} style={[globalStyle.button, globalStyle.reminderButton, globalStyle.centerButton, style.bookVisit]}>
                 <Text>Prenota Visita (WIP)</Text>
             </TouchableOpacity></View>
     )
@@ -31,15 +31,15 @@ function Medico(props) {
 
 function Contatti(props) {
     return (
-        <View style={[globalStyle.container, style.container2]}><Text style={style.subTitle}>Contatti</Text>{props.contatti.map((contatto, i) => contactNameAndCF(contatto, i, "Contatto " + (i+1)))}</View>
+        <View style={[globalStyle.container, style.container2]}><Text style={style.subTitle}>Contacts</Text>{props.contacts.map((c, i) => contactNameAndCF(c, i, "Contacts " + (i+1)))}</View>
     );
 }
 
 function Dettagli(props) {
     let bambino = props.child;
     return (
-        <View style={[globalStyle.container, style.container2]}><Text style={style.subTitle}>Dettagli</Text><Text>Nome: {bambino.nome}</Text>
-        <Text>Cognome: {bambino.cognome}</Text><Text>Data di Nascita: {bambino.dob}</Text><Text>Indirizzo: {bambino.indirizzo}</Text><Allergie child={bambino}/></View>
+        <View style={[globalStyle.container, style.container2]}><Text style={style.subTitle}>Details</Text><Text>Name: {bambino.name}</Text>
+        <Text>Surname: {bambino.surname}</Text><Text>Date of Birth: {bambino.dob}</Text><Text>Address: {bambino.address}</Text><Allergie child={bambino}/></View>
     )
 }
 //TODO ALLERGIE
@@ -48,21 +48,21 @@ const Allergie = (props) => {
     return (<Text style={globalStyle.reminder}>INSERIRE ALLERGIE</Text>);
 }
 
-const ContattiBambino = ({bambino}) => {
+const ChildDetails = ({bambino}) => {
 
     const [contatti, setContatti] = useState([]);
-    useEffect( Fetch ('/anagrafica/contacts/' + bambino.codice, setContatti), []);
+    useEffect( Fetch ('/anagrafica/contacts/' + bambino.id, setContatti), []);
 
     return (
         <View style={globalStyle.container}>
             <TouchableOpacity onPress={() => {window.open("/anagrafica", "_self")}} style={[globalStyle.button, globalStyle.rightSideButton]}>
                 <Text>Go back to Anagrafica</Text>
             </TouchableOpacity>
-            <Text style={globalStyle.title}>{bambino.nome} {bambino.cognome}'s contacts Page</Text>
+            <Text style={globalStyle.title}>{bambino.name} {bambino.surname}'s contacts Page</Text>
             <Dettagli child={bambino}/>
-            <Genitori genitore1={bambino.genitore1} genitore2={bambino.genitore2}/>
-            <Contatti contatti={contatti}/>
-            <Medico specialista={bambino.specialista}/>
+            <Genitori parent1={bambino.parent1} parent2={bambino.parent2}/>
+            <Contatti contacts={contatti}/>
+            <Medico doctor={bambino.specialista}/>
         </View>
     );
 };
@@ -80,4 +80,4 @@ const style = StyleSheet.create({
     }
 })
 
-export { ContattiBambino };
+export { ChildDetails };

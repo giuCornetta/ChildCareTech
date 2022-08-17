@@ -1,7 +1,7 @@
 package it.polimi.inginf.childcaretech.Controllers;
 
-import it.polimi.inginf.childcaretech.Data.Bambino;
-import it.polimi.inginf.childcaretech.Data.Contatto;
+import it.polimi.inginf.childcaretech.Data.Child;
+import it.polimi.inginf.childcaretech.Data.Contact;
 import it.polimi.inginf.childcaretech.Repositories.ChildRepository;
 import it.polimi.inginf.childcaretech.Repositories.ContactsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +22,12 @@ public class AnagraficaJsonController {
     }
 
     @GetMapping("/children")
-    public Iterable<Bambino> children(){
+    public Iterable<Child> children(){
         return  childRepository.findAll();
     }
 
     @GetMapping("/contacts/{childId}")
-    public Iterable<Contatto> contacts(@PathVariable("childId") int childId){
-        return contactRepo.findByCodBambino(childId);
+    public Iterable<Contact> contacts(@PathVariable("childId") int childId){
+        return contactRepo.findByIdChild(childId);
     }
 }

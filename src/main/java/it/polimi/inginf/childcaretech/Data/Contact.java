@@ -6,28 +6,26 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
 @RequiredArgsConstructor //Generates a Constructor with required arguments
 @NoArgsConstructor /*Lombok @RequiredArgsConstructor will not generate any argument for: Non-final fields. Initialized final fields. static fields. Initialized non-null fields.*/
-public class Contatto {
+public class Contact {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @NotNull
     private String cf;
     @NotNull
-    @Column(name="codbambino")
-    private int codBambino;
+    private int idChild;
     @NotNull
-    private String nome;
+    private String name;
     @NotNull
-    private String cognome;
+    private String surname;
     @Nullable
-    private String telefono;
+    private String telephone;
     /*@OneToMany
     private TelephoneNumber;*/
 

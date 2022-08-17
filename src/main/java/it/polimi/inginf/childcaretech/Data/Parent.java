@@ -5,25 +5,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
 @RequiredArgsConstructor //Generates a Constructor with required arguments
 @NoArgsConstructor /*Lombok @RequiredArgsConstructor will not generate any argument for: Non-final fields. Initialized final fields. static fields. Initialized non-null fields.*/
-public class Genitore {
+public class Parent {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @NotNull
     private String cf;
     @NotNull
-    private String nome;
+    private String name;
     @NotNull
-    private String cognome;
+    private String surname;
     @NotNull
     private String email;
     /*@OneToMany

@@ -2,7 +2,6 @@ package it.polimi.inginf.childcaretech.Data;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
-import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -11,26 +10,25 @@ import javax.persistence.*;
 import javax.print.Doc;
 import java.io.Serializable;
 import java.sql.Date;
-import java.time.LocalDate;
 
 @Data
 @RequiredArgsConstructor //Generates a Constructor with required arguments
 @NoArgsConstructor /*Lombok @RequiredArgsConstructor will not generate any argument for: Non-final fields. Initialized final fields. static fields. Initialized non-null fields.*/
 @Entity //Needed for Spring JPA
-public class Bambino implements Serializable { //implementando serializable può essere inviato tramite JSON ??
+public class Child implements Serializable { //implementando serializable può essere inviato tramite JSON ??
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int codice;
+    private int id;
 
     @NotNull
     private String cf;
 
     @NotNull
-    private String nome;
+    private String name;
 
     @NotNull
-    private String cognome;
+    private String surname;
 
     @NotNull
     private Date dob; //magari devo modificare a Date nel futuro
@@ -40,17 +38,17 @@ public class Bambino implements Serializable { //implementando serializable può
     */
 
     @NotNull
-    private String indirizzo;
+    private String address;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "IDGenitore1")
-    private Genitore genitore1;
+    @JoinColumn(name = "ID_Parent1")
+    private Parent parent1;
 
     @ManyToOne
-    @JoinColumn(name="IDGenitore2")
+    @JoinColumn(name="ID_Parent2")
     @Nullable
-    private Genitore genitore2;
+    private Parent parent2;
 
     /*@NotNull
     @Column(name="IDGenitore1")
@@ -62,8 +60,8 @@ public class Bambino implements Serializable { //implementando serializable può
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name="IDSpecialista")
-    private Doctor specialista;
+    @JoinColumn(name="ID_Doctor")
+    private Doctor idDoctor;
 
     /*public class Province {
 
