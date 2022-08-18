@@ -4,20 +4,20 @@ import {globalStyle} from "./globalStyle.js";
 
 const DATA = [
     {
-        title: "Presenze",
-        link: "/presenze"
+        title: "Attendance",
+        link: "/attendance"
     },
     {
-        title: "Anagrafica",
-        link: "/anagrafica"
+        title: "Details",
+        link: "/details"
     },
     {
         title: "Gite",
         link: "/gite"
     },
     {
-        title: "Visite",
-        link: "/visite"
+        title: "Appointments",
+        link: "/appointments"
     }
 ];
 

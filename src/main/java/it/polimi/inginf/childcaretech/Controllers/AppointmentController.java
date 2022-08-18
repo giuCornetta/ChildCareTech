@@ -1,15 +1,24 @@
 package it.polimi.inginf.childcaretech.Controllers;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import it.polimi.inginf.childcaretech.Data.Appointment;
+import it.polimi.inginf.childcaretech.Repositories.AppointmentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+
 @RestController
-@RequestMapping(value = "/visite", produces="application/json")
-public class AppointmentsController {
+@RequestMapping(value = "/appointments", produces="application/json")
+public class AppointmentController {
+
+    private final AppointmentRepository appointmentRepository;
+
+    @Autowired
+    public AppointmentController(AppointmentRepository appRepo){
+        this.appointmentRepository = appRepo;
+    }
 
     /*@GetMapping
     public String view(Model model){
@@ -20,6 +29,11 @@ public class AppointmentsController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("appointments.html");
         return modelAndView;
+    }
+
+    @GetMapping("/booked")
+    public Iterable<Appointment> getBookedAppointments(){
+        return appointmentRepository.findAll();
     }
 
     /*@GetMapping("/visite/prenota/{idDottore}/{idBambino}", produces = "application/json")

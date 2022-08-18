@@ -36,6 +36,10 @@ const globalStyle = StyleSheet.create({
     title: {
         fontSize: 32
     },
+    subTitle: {
+        fontSize : 25,
+        margin : 5
+    },
     table: {
         width: '90%',
         justifyContent: 'center',
