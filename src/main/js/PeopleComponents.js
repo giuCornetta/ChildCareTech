@@ -22,6 +22,7 @@ const Doctor = (props) => {
         <View style={[globalStyle.container, style.container2]}><Text style={globalStyle.subTitle}>Doctor</Text>
             <Text>{props.doctor.name} {props.doctor.surname} ({props.doctor.cf})</Text>
             <Text>Phone: {props.doctor.telephone}</Text>
+            <Text>Email: {props.doctor.email}</Text>
             <Text>Type: {props.doctor.type}</Text>
             {button}
         </View>
@@ -55,7 +56,7 @@ function Contacts(props) {
 function Child(props) {
     let bambino = props.child;
     return (
-        <View style={[globalStyle.container, style.container2]}><Text style={style.subTitle}>Child Details</Text>
+        <View style={[globalStyle.container, style.container2]}><Text style={globalStyle.subTitle}>Child Details</Text>
             <Text>Name: {bambino.name}</Text>
             <Text>Surname: {bambino.surname}</Text>
             <Text>CF: {bambino.cf}</Text>

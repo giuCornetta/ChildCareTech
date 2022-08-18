@@ -1,5 +1,6 @@
 package it.polimi.inginf.childcaretech.Data;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
 import lombok.*;
@@ -33,6 +34,7 @@ public class Child implements Serializable { //implementando serializable può e
     private String surname;
 
     @NotNull
+    @JsonFormat(pattern="dd/MM/yyyy")
     private Date dob; //magari devo modificare a Date nel futuro
 
     /*@ManyToOne //FIXME (ci possono essere più bambini per un genitore)

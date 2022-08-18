@@ -1,13 +1,17 @@
 package it.polimi.inginf.childcaretech.Data;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Objects;
 
 @Getter
@@ -36,6 +40,19 @@ public class Appointment {
     @JoinColumn(name = "ID_Staff")
     @ManyToOne
     private Staff staff;
+
+    @NotNull
+    //@DateTimeFormat(pattern="dd/MM/yyyy")
+    @JsonFormat(pattern="dd/MM/yyyy")
+    private LocalDate date;
+
+    @NotNull
+    //@DateTimeFormat(pattern="HH:mm")
+    @JsonFormat(pattern="HH:mm")
+    private LocalTime time;
+
+    @Nullable
+    private String description;
 
     @Override
     public boolean equals(Object o) {

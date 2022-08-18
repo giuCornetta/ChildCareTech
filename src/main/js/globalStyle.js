@@ -15,8 +15,12 @@ const globalStyle = StyleSheet.create({
         borderLeftColor : "black",
         borderLeftWidth : StyleSheet.hairlineWidth,
         borderRightColor: "black",
-        borderRightWidth: StyleSheet.hairlineWidth
+        borderRightWidth: StyleSheet.hairlineWidth,
 
+    },
+    insideCell: {
+        margin: 10,
+        paddingVertical: 10,
     },
     header: {
         backgroundColor :  '#E0FFFF',
@@ -48,7 +52,9 @@ const globalStyle = StyleSheet.create({
     button: {
         backgroundColor: "#DDDDDD",
         padding: 10,
-
+    },
+    tableButton: {
+        textDecorationLine: 'underline',
     },
     rightSideButton: {
         alignSelf: 'flex-end',

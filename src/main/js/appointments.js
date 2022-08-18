@@ -16,9 +16,18 @@ const Appointments = () => {
         <TouchableOpacity onPress={() => {window.open("/", "_self")}} style={[globalStyle.button, globalStyle.rightSideButton]}>
             <Text>Go back to Home</Text>
         </TouchableOpacity>
-        <Text style={globalStyle.title}>Hello!</Text>
+        <Text style={globalStyle.title}>Here you can see and book appointments</Text>
+        <>
+        <Text style={globalStyle.subTitle}>Book an Appointment</Text>
+        <TouchableOpacity onPress={() => {window.open("/", "_self")}} style={[globalStyle.button, globalStyle.centerButton]}>
+            <Text>Book a Visit</Text>
+        </TouchableOpacity>
+        </>
+        <>
+        <Text style={globalStyle.subTitle}>Booked Appointments</Text>
         <TableComponent nameColumns={["Child", "Doctor", "Staff"]} list={appointments} propExtractor={printable} onPress={(appointment) => setSelectedAppointment(appointment)}/>
         <AppointmentDetails selectedAppointment={selectedAppointment} />
+            </>
     </View>)
 }
 
@@ -32,7 +41,7 @@ const AppointmentDetails = ({selectedAppointment}) => {
         return (
             <View style={globalStyle.container}>
                 <>
-                <Text style={globalStyle.subTitle}>Details</Text>
+                <Text style={globalStyle.subTitle}>Visit Details</Text>
                 <Text>Description: {selectedAppointment.description}</Text>
                 <Text>Date: {selectedAppointment.date}</Text>
                 <Text>Time: {selectedAppointment.time}</Text>
