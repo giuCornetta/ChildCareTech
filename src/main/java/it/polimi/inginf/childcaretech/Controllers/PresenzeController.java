@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/presenze")
+@RequestMapping("/attendance")
 public class PresenzeController {
 
     @GetMapping
-    public String view(Model model){
+    public String view(){
         return "presenze";
     }
 }

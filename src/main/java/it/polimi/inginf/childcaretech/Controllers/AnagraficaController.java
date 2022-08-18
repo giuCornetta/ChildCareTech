@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(path="/anagrafica", produces="application/json") //Handles requests for "/anagrafica"
 @CrossOrigin(origins="*")*/
 @Controller
-@RequestMapping("/anagrafica")
+@RequestMapping("/details")
 public class AnagraficaController {
 
     @GetMapping
@@ -17,6 +17,6 @@ public class AnagraficaController {
         /*List<Children> children = new ArrayList<>((List<Children>) repository.findAll());
 
         model.addAttribute("kids", children);*/
-        return "Anagrafica";
+        return "details";
     }
 }

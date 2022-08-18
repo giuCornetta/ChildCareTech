@@ -2,22 +2,24 @@ package it.polimi.inginf.childcaretech.Data;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import javax.print.Doc;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
 @RequiredArgsConstructor //Generates a Constructor with required arguments
 @NoArgsConstructor /*Lombok @RequiredArgsConstructor will not generate any argument for: Non-final fields. Initialized final fields. static fields. Initialized non-null fields.*/
 @Entity //Needed for Spring JPA
 public class Child implements Serializable { //implementando serializable può essere inviato tramite JSON ??
 
     @Id
+    @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
@@ -88,4 +90,17 @@ public class Child implements Serializable { //implementando serializable può e
 
 }
      */
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Child child = (Child) o;
+        return Objects.equals(id, child.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
