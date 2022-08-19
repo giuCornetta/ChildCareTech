@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Child Care Tech</title>
+  </head>
+  
+  <body>
+    <h1>Register</h1>
+    
+    <form method="POST" th:action="@{/register}" id="registerForm">
+
+        <label for="username">Username: </label>
+        <input type="text" id= "username" name="username" placeholder="Insert username" required/><br/>
+
+        <label for="name">Name: </label>
+        <input type="text" id="name" name="name" placeholder="Insert name" required/><br/>
+
+        <label for="surname">Surname: </label>
+        <input type="text" id="surname" name="surname" placeholder="Insert surname" required/><br/>
+
+        <label for="cf">CF: </label>
+        <input type="text" id="cf" name="cf" placeholder="Insert CF" required/><br/>
+
+        <label for="email">Email: </label>
+        <input type="email" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Insert email" required/><br/>
+
+        <label for="password">Password: </label>
+        <input type="password" id="password" name="password" placeholder="Insert password" required /><br/>
+
+        <label for="confirm">Confirm password: </label>
+        <input type="password" id="confirm" name="confirm" placeholder="Insert password" required/><br/>
+
+        <label for="type">Staff role: </label>
+        <select name="type" id="type">
+            <option disabled selected> -- select an option -- </option>
+            <option value="nurse">Nurse</option>
+            <option value="supervisor">Supervisor</option>
+            <option value="secretary">Secretary</option>
+            <option value="janitor">Janitor</option>
+            <option value="food service worker">Food Service Worker</option>
+        </select>
+        <br/>
+        <label for="telephone">Telephone: </label>
+        <input id="telephone" type="text" name="telephone" placeholder="Insert phone number" required/><br/>
+
+        <input type="submit" value="Register now"/>
+    </form>
+    
+  </body>
+</html>

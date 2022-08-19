@@ -1,41 +1,87 @@
 package it.polimi.inginf.childcaretech.Data;
 
 import com.sun.istack.NotNull;
+import com.sun.istack.Nullable;
+import lombok.AccessLevel;
 import lombok.*;
 import org.hibernate.Hibernate;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
 @Setter
 @ToString
 @Entity
-@RequiredArgsConstructor //Generates a Constructor with required arguments
-@NoArgsConstructor
-public class Staff {
+@NoArgsConstructor(access= AccessLevel.PRIVATE, force=true)
+@RequiredArgsConstructor
+public class Staff implements UserDetails {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @NotNull
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotNull
-    private String cf;
-    @NotNull
-    private String name;
-    @NotNull
-    private String surname;
-    @NotNull
-    private String type; //tipo di staff member
-    @NotNull
-    private String telephone;
-    @NotNull
-    private String email;
 
+    @NotNull
+    @NotBlank(message="CF is required")
+    private final String cf;
+    @NotNull
+    @NotBlank(message = "Name is required")
+    private final String name;
+    @NotNull
+    private final String surname;
+    @NotNull
+    private final String username;
+    @NotNull
+    private final String password;
+    @NotNull
+    private final String type; //tipo di staff member
+    @NotNull
+    private final String telephone;
+    @NotNull
+    private final String email;
+    @Nullable
     private Boolean tutorial;
+
+    /**
+     * Returns a collection of authorities granted to the user
+     * @return A collection of GrantedAuthority objects
+     */
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
     @Override
     public boolean equals(Object o) {
