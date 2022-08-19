@@ -1,5 +1,6 @@
 package it.polimi.inginf.childcaretech.Data;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
 import lombok.AccessLevel;
@@ -24,8 +25,10 @@ import java.util.Objects;
 @Setter
 @ToString
 @Entity
-@NoArgsConstructor(access= AccessLevel.PRIVATE, force=true)
+ //Generates a Constructor with required arguments
+@NoArgsConstructor(access= AccessLevel.PUBLIC, force=true)
 @RequiredArgsConstructor
+@JsonIgnoreProperties("password")
 public class Staff implements UserDetails {
 
     private static final long serialVersionUID = 1L;
