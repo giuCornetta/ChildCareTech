@@ -1,7 +1,7 @@
 package it.polimi.inginf.childcaretech.security;
 
-import it.polimi.inginf.childcaretech.Data.Staff;
-import it.polimi.inginf.childcaretech.Repositories.StaffRepository;
+import it.polimi.inginf.childcaretech.data.Staff;
+import it.polimi.inginf.childcaretech.repositories.StaffRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

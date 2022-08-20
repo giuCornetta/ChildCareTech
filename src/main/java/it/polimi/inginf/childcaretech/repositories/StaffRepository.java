@@ -1,6 +1,6 @@
-package it.polimi.inginf.childcaretech.Repositories;
+package it.polimi.inginf.childcaretech.repositories;
 
-import it.polimi.inginf.childcaretech.Data.Staff;
+import it.polimi.inginf.childcaretech.data.Staff;
 import org.springframework.data.repository.CrudRepository;
 
 public interface StaffRepository extends CrudRepository<Staff, Integer> {

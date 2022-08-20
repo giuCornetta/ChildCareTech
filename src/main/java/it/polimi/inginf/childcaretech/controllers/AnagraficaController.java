@@ -1,4 +1,4 @@
-package it.polimi.inginf.childcaretech.Controllers;
+package it.polimi.inginf.childcaretech.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

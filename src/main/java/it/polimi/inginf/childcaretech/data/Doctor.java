@@ -1,4 +1,4 @@
-package it.polimi.inginf.childcaretech.Data;
+package it.polimi.inginf.childcaretech.data;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;

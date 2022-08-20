@@ -1,10 +1,9 @@
 package it.polimi.inginf.childcaretech.security;
 
-import it.polimi.inginf.childcaretech.Data.Staff;
+import it.polimi.inginf.childcaretech.data.Staff;
 import lombok.Data;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

@@ -1,9 +1,9 @@
-package it.polimi.inginf.childcaretech.Controllers;
+package it.polimi.inginf.childcaretech.controllers;
 
-import it.polimi.inginf.childcaretech.Data.Child;
-import it.polimi.inginf.childcaretech.Data.Contact;
-import it.polimi.inginf.childcaretech.Repositories.ChildRepository;
-import it.polimi.inginf.childcaretech.Repositories.ContactRepository;
+import it.polimi.inginf.childcaretech.data.Child;
+import it.polimi.inginf.childcaretech.data.Contact;
+import it.polimi.inginf.childcaretech.repositories.ChildRepository;
+import it.polimi.inginf.childcaretech.repositories.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,6 +1,6 @@
-package it.polimi.inginf.childcaretech.Repositories;
+package it.polimi.inginf.childcaretech.repositories;
 
-import it.polimi.inginf.childcaretech.Data.Contact;
+import it.polimi.inginf.childcaretech.data.Contact;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

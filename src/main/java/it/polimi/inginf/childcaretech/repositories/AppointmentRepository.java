@@ -1,6 +1,6 @@
-package it.polimi.inginf.childcaretech.Repositories;
+package it.polimi.inginf.childcaretech.repositories;
 
-import it.polimi.inginf.childcaretech.Data.Appointment;
+import it.polimi.inginf.childcaretech.data.Appointment;
 import org.springframework.data.repository.CrudRepository;
 
 public interface AppointmentRepository extends CrudRepository<Appointment, Integer> {

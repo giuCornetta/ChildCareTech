@@ -1,7 +1,7 @@
-package it.polimi.inginf.childcaretech.Controllers;
+package it.polimi.inginf.childcaretech.controllers;
 
-import it.polimi.inginf.childcaretech.Data.Appointment;
-import it.polimi.inginf.childcaretech.Repositories.AppointmentRepository;
+import it.polimi.inginf.childcaretech.data.Appointment;
+import it.polimi.inginf.childcaretech.repositories.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
