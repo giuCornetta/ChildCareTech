@@ -16,7 +16,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -25,36 +28,43 @@ import java.util.Objects;
 @Setter
 @ToString
 @Entity
- //Generates a Constructor with required arguments
+//Generates a Constructor with required arguments
 @NoArgsConstructor(access= AccessLevel.PUBLIC, force=true)
 @RequiredArgsConstructor
 @JsonIgnoreProperties("password")
 public class Staff implements UserDetails {
 
     private static final long serialVersionUID = 1L;
-
+    //TODO error se ci sono errori in alcuni vincoli
+    //TODO third part access
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotNull
-    @NotBlank(message="CF is required")
     private final String cf;
+
     @NotNull
-    @NotBlank(message = "Name is required")
     private final String name;
+
     @NotNull
     private final String surname;
+
     @NotNull
     private final String username;
+
     @NotNull
     private final String password;
+
     @NotNull
-    private final String type; //tipo di staff member
+    private final String type; //type of staff member
+
     @NotNull
     private final String telephone;
+
     @NotNull
     private final String email;
+
     @Nullable
     private Boolean tutorial;
 
