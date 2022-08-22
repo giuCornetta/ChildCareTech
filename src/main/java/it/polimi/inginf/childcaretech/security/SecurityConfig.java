@@ -24,7 +24,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(StaffRepository userRepo) {
+    public UserDetailsService userDetailsService(StaffRepository userRepo) { //FIXME
         return username -> {
             Staff user = userRepo.findByUsername(username);
             System.out.println(user);

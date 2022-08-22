@@ -51,10 +51,17 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.ibm.db2/jcc -->
-        <dependency>
+        <!--<dependency>
             <groupId>com.ibm.db2</groupId>
             <artifactId>jcc</artifactId>
+        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/com.ibm.db2.jcc/db2jcc -->
+        <dependency>
+            <groupId>com.ibm.db2.jcc</groupId>
+            <artifactId>db2jcc</artifactId>
+            <version>db2jcc4</version>
         </dependency>
+
         <!--<dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>

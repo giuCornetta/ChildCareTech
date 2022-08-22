@@ -10,6 +10,7 @@ module.exports = {
 		//path: __dirname,
 		filename: 'bundle.js'
 	},
+
 	module: {
 		rules: [
 			{
@@ -21,7 +22,31 @@ module.exports = {
 						presets: ["@babel/preset-env", "@babel/preset-react"]
 					}
 				}]
-			}
+			},
+			/*{
+				test: /(@?react-(navigation|native)).*\.(ts|js)x?$/,
+				include: /node_modules/,
+				exclude: [/react-native-web/, /\.(native|ios|android)\.(ts|js)x?$/],
+				loader: 'babel-loader',
+				options: {
+					presets: ["@babel/preset-env", "@babel/preset-react"]
+				}
+			},*/
+			{
+				test: /\.css$/i,
+				use: ["style-loader", "css-loader"],
+			},
+			// This would match ui-kitten
+			/*{
+				test: /@?(datepicker).*\.(ts|js)x?$/,
+				loader: 'babel-loader',
+				options: {
+					presets: ["@babel/preset-env", "@babel/preset-react"]
+				}
+			}*/
 		]
-	}
+	},
+	resolve: {
+		extensions: ['', '.js', '.jsx', '.css']
+	},
 };

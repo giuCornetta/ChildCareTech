@@ -6,23 +6,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface ChildAttendanceRepository extends CrudRepository<ChildAttendance, ChildAttendancePK> {
 
-    public final static String ATTENDANCE = "Select ID_Child, Date, EntranceTime, ExitTime from Child left outer join (select * from CHILDATTENDANCE where date = :date) as c on CHILD.id = c.id_child";
+    @Query(value = "Select ID_Child, Name, Surname, Date, EntranceTime, ExitTime from Child left outer join (select * from CHILDATTENDANCE where date = :date) as attendance on child.ID = attendance.ID_Child", nativeQuery = true)
+    List<ChildAttendance> findChildAttendancesOuterJoin(@Param("date") Timestamp date);
 
-
-
-
-    @Query(value = "Select ID_Child, Date, EntranceTime, ExitTime from Child left outer join (select * from CHILDATTENDANCE where date = :date) as c on CHILD.id = c.id_child", nativeQuery = true)
-    List<ChildAttendance> findChildAttendancesOuterJoin(@Param("date") Date date);
-
-    @Query(value = "Select ID_Child, Date, EntranceTime, ExitTime from Child left outer join (select * from CHILDATTENDANCE where date = current_date) as c on CHILD.id = c.id_child", nativeQuery = true)
-    List<ChildAttendance> findChildAttendancesTodayOuterJoin();
-
-
-
-
+    //List<ChildAttendance> findChildAttendanceByDate(LocalDate date);
 }

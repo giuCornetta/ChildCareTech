@@ -21,7 +21,7 @@ public class Child implements Serializable { //implementando serializable può e
 
     @Id
     @NotNull
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotNull
