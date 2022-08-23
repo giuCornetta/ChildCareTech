@@ -47,7 +47,8 @@ const globalStyle = StyleSheet.create({
     table: {
         width: '90%',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        borderRadius: 10,
     },
     button: {
         backgroundColor: "#DDDDDD",
@@ -69,7 +70,32 @@ const globalStyle = StyleSheet.create({
     },
     reminderButton: {
         backgroundColor: '#f5938c',
-    }
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 10,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: "center"
+    },
 });
 
 export { globalStyle };

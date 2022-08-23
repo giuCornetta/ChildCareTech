@@ -2,7 +2,6 @@ package it.polimi.inginf.childcaretech.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
-import com.sun.istack.Nullable;
 import lombok.AccessLevel;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -60,9 +59,6 @@ public class Staff implements UserDetails {
 
     @NotNull
     private final String email;
-
-    @Nullable
-    private Boolean tutorial;
 
     /**
      * Returns a collection of authorities granted to the user

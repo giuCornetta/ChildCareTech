@@ -16,7 +16,7 @@ const Attendance = () => {
 
 
     return (
-        <View>
+        <View style={globalStyle.container}>
             <TouchableOpacity onPress={() => {window.open("/", "_self")}} style={[globalStyle.button, globalStyle.rightSideButton]}>
                 <Text>Go back to Home</Text>
             </TouchableOpacity>
@@ -43,15 +43,6 @@ const Attendance = () => {
 
 const propExtractor = (attendance) => {
     let name, surname, entranceTime, exitTime;
-    /*if(attendance.child){
-        name = attendance.child.name;
-        surname = attendance.child.surname;
-    } else {
-        name = "";
-        surname = "";
-    }
-    entranceTime = attendance.entranceTime? attendance.entranceTime : "";
-    exitTime = attendance.exitTime? attendance.exitTime : "";*/
     if(attendance){
         name = attendance.child.name;
         surname = attendance.child.surname;

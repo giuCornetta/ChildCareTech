@@ -1,4 +1,7 @@
-.cell {
-    border : 1px;
-    /*background-color : chartreuse;*/
+input {
+    margin: 4px;
+}
+
+input[type="button"]{
+    margin: 10px;
 }

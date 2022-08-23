@@ -55,6 +55,7 @@ public class SecurityConfig {
                                        //navigating to when Spring Security determined that they needed to log in.
 
                 .and()
+                .cors().and()/*.csrf().disable()*/
                 .build();
     }
 

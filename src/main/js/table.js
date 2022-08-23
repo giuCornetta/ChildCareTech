@@ -48,13 +48,14 @@ const TableComponent = ({nameColumns, list, propExtractor, onPress}) => {
     let correctList = array.map(propExtractor);
 
     let functionWhenPressed = null;
-    if(onPress){
-        functionWhenPressed = () => {onPress(list[i]); setSelectedRow(i)}
-    }
+
 
 
     let rows = [];
     for (let i = 0; i < correctList.length; i++) {
+        if(onPress){
+            functionWhenPressed = () => {onPress(list[i]); setSelectedRow(i)}
+        }
         rows.push(<TableRow key={i} numColumns={nameColumns.length} object={correctList[i]} onPress={functionWhenPressed} selectedRow={selectedRow} index={i}/>);
     }
     //tableRow(list[i]);

@@ -37,10 +37,6 @@ public class Child implements Serializable { //implementando serializable può e
     @JsonFormat(pattern="dd/MM/yyyy")
     private Date dob; //magari devo modificare a Date nel futuro
 
-    /*@ManyToOne //FIXME (ci possono essere più bambini per un genitore)
-    private Parent parent1;
-    */
-
     @NotNull
     private String address;
 
@@ -54,44 +50,10 @@ public class Child implements Serializable { //implementando serializable può e
     @Nullable
     private Parent parent2;
 
-    /*@NotNull
-    @Column(name="IDGenitore1")
-    private int idGenitore1;
-
-    @Nullable
-    @Column(name="IDGenitore2")
-    private Integer idGenitore2; //has to be Integer because can be null*/
-
     @NotNull
     @ManyToOne
     @JoinColumn(name="ID_Doctor")
     private Doctor doctor;
-
-    /*public class Province {
-
-        @Id
-        Long id;
-
-        @Column(nullable = false)
-        String name;
-
-        @JsonManagedReference
-        @OneToMany(mappedBy = "province")
-        List<City> cities;
-
-    }
-
-    public class City{
-    @Column(nullable = false)
-    String name;
-
-    @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "province_id")
-    Province province;
-
-}
-     */
 
     @Override
     public boolean equals(Object o) {
