@@ -1,8 +1,11 @@
 package it.polimi.inginf.childcaretech.controllers;
 
+import it.polimi.inginf.childcaretech.data.Child;
+import it.polimi.inginf.childcaretech.data.CreatedChild;
 import it.polimi.inginf.childcaretech.data.Doctor;
 import it.polimi.inginf.childcaretech.data.Parent;
 import it.polimi.inginf.childcaretech.data.formData.FormSelection;
+import it.polimi.inginf.childcaretech.repositories.ChildRepository;
 import it.polimi.inginf.childcaretech.repositories.DoctorRepository;
 import it.polimi.inginf.childcaretech.repositories.ParentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +19,15 @@ import java.util.List;
 @RequestMapping(path = "/createChild", produces = "application/json")
 @CrossOrigin(origins="*")
 public class CreateChildController {
-
-    private ParentRepository parentRepository;
-    private DoctorRepository doctorRepository;
+    private final ParentRepository parentRepository;
+    private final DoctorRepository doctorRepository;
+    private final ChildRepository childRepository;
 
     @Autowired
-    public CreateChildController(ParentRepository parentRepository, DoctorRepository doctorRepository){
+    public CreateChildController(ParentRepository parentRepository, DoctorRepository doctorRepository, ChildRepository childRepository){
         this.parentRepository = parentRepository;
         this.doctorRepository = doctorRepository;
+        this.childRepository = childRepository;
     }
 
     @GetMapping
@@ -36,23 +40,38 @@ public class CreateChildController {
     @GetMapping("/parents")
     public List<FormSelection> getParentsSelection(){
         List<Parent> parents = (List<Parent>) parentRepository.findAll();
-        List<FormSelection> parentSelection = parents.stream().map((parent) -> { return new FormSelection(parent.getId(), parent.getName(), parent.getSurname(), parent.getCf());}).toList();
-        return parentSelection;
+        return parents.stream().map((parent) -> new FormSelection(parent.getId(), parent.getName(), parent.getSurname(), parent.getCf())).toList();
     }
 
     @GetMapping("/doctors")
     public List<FormSelection> getDosctorsSelection(){
         List<Doctor> doctors = (List<Doctor>) doctorRepository.findAll();
-        List<FormSelection> doctorSelection = doctors.stream().map((doctor) -> { return new FormSelection(doctor.getId(), doctor.getName(), doctor.getSurname(), doctor.getCf());}).toList();
-        return doctorSelection;
+        return doctors.stream().map((doctor) -> new FormSelection(doctor.getId(), doctor.getName(), doctor.getSurname(), doctor.getCf())).toList();
     }
 
     @PostMapping(path = "/createDoctor", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public Doctor createNewDoctor(@RequestBody Doctor doctor){
-        System.out.println("Doctor arrived to BACKEND");
-        return doctorRepository.save(doctor); //FIXME check it works
+        return doctorRepository.save(doctor);
 
+    }
+
+    @PostMapping(path = "/createParent", consumes = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Parent createNewParent(@RequestBody Parent parent){
+        return parentRepository.save(parent);
+    }
+
+    @PostMapping(path = "/create", consumes = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Child createNewChild(@RequestBody CreatedChild c){
+        Parent parent1 = parentRepository.findById(c.getParent1()).orElse(null);
+        Parent parent2 = parentRepository.findById(c.getParent2()).orElse(null);
+        Doctor doctor = doctorRepository.findById(c.getDoctor()).orElse(null);
+
+        Child child = new Child(c.getId(), c.getCf(), c.getName(), c.getSurname(), c.getDob(), c.getAddress(), parent1, parent2, doctor);
+
+        return childRepository.save(child); //FIXME check it works
     }
 
 }

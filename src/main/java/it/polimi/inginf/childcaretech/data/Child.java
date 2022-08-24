@@ -55,6 +55,19 @@ public class Child implements Serializable { //implementando serializable può e
     @JoinColumn(name="ID_Doctor")
     private Doctor doctor;
 
+    public Child(int id, String cf, String name, String surname, Date dob, String address, Parent parent1, Parent parent2, Doctor doctor) {
+        this.id = id;
+        this.cf = cf;
+        this.name = name;
+        this.surname = surname;
+        this.dob = dob;
+        this.address = address;
+        this.parent1 = parent1;
+        this.parent2 = parent2;
+        this.doctor = doctor;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

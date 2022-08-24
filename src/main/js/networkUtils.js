@@ -15,13 +15,9 @@ const Fetch = function(_url, _setter) {
     });
 }
 
-const PostRequest = (_url, _responseBody , _csrf) => {
-    console.log("starting post")
-    console.log("_csrf" + _csrf)
+const PostRequest = (_url, _responseBody , _setter, _csrf, _refresh) => {
 
     return ( () => {
-        console.log("entered in return")
-        console.log("_csrf" + _csrf)
         fetch(_url, {
             credentials: 'include',
             method: 'POST',
@@ -35,6 +31,8 @@ const PostRequest = (_url, _responseBody , _csrf) => {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
+                _setter(data);
+                _refresh();
             })
             .catch((err) => {
                 console.log(err.message);

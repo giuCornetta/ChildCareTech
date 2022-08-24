@@ -20,7 +20,7 @@ public class Parent {
 
     @Id
     @NotNull
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotNull
     private String cf;
@@ -50,4 +50,9 @@ public class Parent {
     public int hashCode() {
         return getClass().hashCode();
     }
+
+    /*@JsonCreator
+    public Parent(@JsonProperty("parent1") int id ) {
+
+    }*/
 }
