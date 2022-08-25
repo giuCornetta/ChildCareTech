@@ -1,7 +1,8 @@
-package it.polimi.inginf.childcaretech.data;
+package it.polimi.inginf.childcaretech.data.childAttendance;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
+import it.polimi.inginf.childcaretech.data.Child;
 import lombok.*;
 import org.springframework.lang.Nullable;
 

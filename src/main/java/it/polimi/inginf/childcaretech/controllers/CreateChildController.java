@@ -53,6 +53,7 @@ public class CreateChildController {
     @ResponseStatus(HttpStatus.CREATED)
     public Doctor createNewDoctor(@RequestBody Doctor doctor){
         return doctorRepository.save(doctor);
+        //return doctorRepository.findById(4).orElse(null); //DEBUG
 
     }
 
@@ -60,6 +61,7 @@ public class CreateChildController {
     @ResponseStatus(HttpStatus.CREATED)
     public Parent createNewParent(@RequestBody Parent parent){
         return parentRepository.save(parent);
+        //return parentRepository.findById(6).orElse(null); //DEBUG
     }
 
     @PostMapping(path = "/create", consumes = "application/json")

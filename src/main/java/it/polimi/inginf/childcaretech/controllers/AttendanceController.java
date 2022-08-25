@@ -1,7 +1,7 @@
 package it.polimi.inginf.childcaretech.controllers;
 
 import it.polimi.inginf.childcaretech.data.Child;
-import it.polimi.inginf.childcaretech.data.ChildAttendance;
+import it.polimi.inginf.childcaretech.data.childAttendance.ChildAttendance;
 import it.polimi.inginf.childcaretech.repositories.ChildAttendanceRepository;
 import it.polimi.inginf.childcaretech.repositories.ChildRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +22,8 @@ import java.util.*;
 @RequestMapping(value = "/attendance", produces = "application/json")
 public class AttendanceController {
 
-    private ChildAttendanceRepository childAttendanceRepository;
-    private ChildRepository childRepository;
+    private final ChildAttendanceRepository childAttendanceRepository;
+    private final ChildRepository childRepository;
     @Autowired
     public AttendanceController(ChildAttendanceRepository repo1, ChildRepository repo2){
         this.childAttendanceRepository = repo1;
@@ -37,36 +37,22 @@ public class AttendanceController {
         return modelAndView;
     }
 
-    /*@GetMapping("/children")
-    public Iterable<ChildAttendance> findAttendances(){
-        return childAttendanceRepository.findChildAttendancesTodayOuterJoin();
-    }*/
-
     @GetMapping("/children/{date}")
     public Iterable<ChildAttendance> findAttendancesByData(@PathVariable("date") String date_string) throws ParseException {
-        System.out.println(date_string);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        //Parsing the given String to Date object
         Date date = formatter.parse(date_string);
         Timestamp timestamp = new java.sql.Timestamp(date.getTime());
         List<ChildAttendance> attendances = childAttendanceRepository.findChildAttendancesOuterJoin(timestamp);
-        System.out.println(attendances);
         List<Child> children = childRepository.findChildByIdIsNotInChildAttendance(timestamp);
-        System.out.println("Bambini:" + children);
         for(Child c : children){
-            System.out.println("c " + c);
             if(c != null){
-                System.out.println("c è stato aggiunto");
                 attendances.add(new ChildAttendance(c, LocalDate.parse(date_string), null, null));
             }
         }
-        System.out.println("Lista completa: " + attendances);
         List<ChildAttendance> finalAttendances = new ArrayList<>();
         for(ChildAttendance ca : attendances){
-            System.out.println("ca " + ca);
             if(ca != null) {
                 finalAttendances.add(ca); //Altrimenti modificava la stessa collection
-                System.out.println("ca è stato aggiunto");
             }
         }
         System.out.println(finalAttendances);

@@ -1,8 +1,10 @@
-package it.polimi.inginf.childcaretech.data;
+package it.polimi.inginf.childcaretech.data.childAttendance;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -11,6 +13,8 @@ import java.time.LocalDate;
 
 @Embeddable
 @NoArgsConstructor
+@Getter
+@Setter
 public class ChildAttendancePK implements Serializable {
 
     @NotNull
@@ -26,6 +30,4 @@ public class ChildAttendancePK implements Serializable {
         this.date = date;
     }
 
-
-    /** getters and setters **/
 }

@@ -39,7 +39,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeRequests()
-                .antMatchers("/","/anagrafica").hasRole("USER") //Don't include the ROLE_ prefix on roles passed to hasRole(); it will be assumed by hasRole()
+                .antMatchers("/","/attendance").hasRole("USER") //Don't include the ROLE_ prefix on roles passed to hasRole(); it will be assumed by hasRole()
                 .antMatchers("/register").permitAll()
 
                 .and()

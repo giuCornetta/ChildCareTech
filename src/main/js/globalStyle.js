@@ -90,7 +90,8 @@ const globalStyle = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
-        elevation: 5
+        elevation: 5,
+        maxHeight: 500,
     },
     modalText: {
         marginBottom: 15,

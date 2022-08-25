@@ -1,7 +1,7 @@
 package it.polimi.inginf.childcaretech.repositories;
 
-import it.polimi.inginf.childcaretech.data.ChildAttendance;
-import it.polimi.inginf.childcaretech.data.ChildAttendancePK;
+import it.polimi.inginf.childcaretech.data.childAttendance.ChildAttendance;
+import it.polimi.inginf.childcaretech.data.childAttendance.ChildAttendancePK;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

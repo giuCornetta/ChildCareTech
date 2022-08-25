@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {Alert, Modal, Pressable, StyleSheet, Text, View} from "react-native-web";
+import {Alert, Modal, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native-web";
 import {globalStyle} from "./globalStyle";
 import Select from 'react-select'
 import {Fetch, PostRequest} from "./networkUtils";
-import {Child, Doctor, Parents} from "./PeopleComponents";
+import {Child, Doctor, ParentPhones, Parents} from "./PeopleComponents";
 
 function padTo2Digits(num) {
     return num.toString().padStart(2, '0');
@@ -27,9 +27,9 @@ const AddChild = () => {
     const [refreshParents, setRefreshParents] = useState(false)
     const [refreshDoctors, setRefreshDoctors] = useState(false);
 
-    useEffect( Fetch ('/createChild/parents', setParents), [refreshParents]);
-    useEffect( Fetch ('/createChild/doctors', setDoctors), [refreshDoctors]);
-    useEffect( Fetch('/csrf', setCsrfToken) , [])
+    useEffect(Fetch('/createChild/parents', setParents), [refreshParents]);
+    useEffect(Fetch('/createChild/doctors', setDoctors), [refreshDoctors]);
+    useEffect(Fetch('/csrf', setCsrfToken), [])
 
     const toggleRefreshParents = () => {
         setRefreshParents(!refreshParents);
@@ -40,9 +40,14 @@ const AddChild = () => {
     }
 
     return (
-        <View>
-            <AddChildForm parentOptions={parents} doctorOptions={doctors} setParentModalVisible={setParentModalVisible} setDoctorModalVisible={setDoctorModalVisible} csrfToken={csrfToken}/>
+        <View style={globalStyle.container}>
+            <TouchableOpacity onPress={() => {window.open("/", "_self")}} style={[globalStyle.button, globalStyle.rightSideButton]}>
+                <Text>Go back to Home</Text>
+            </TouchableOpacity>
+            <AddChildForm parentOptions={parents} doctorOptions={doctors} setParentModalVisible={setParentModalVisible}
+                          setDoctorModalVisible={setDoctorModalVisible} csrfToken={csrfToken}/>
             <Modal
+                propagateSwipe={true}
                 animationType="slide"
                 transparent={true}
                 visible={parentModalVisible}
@@ -53,6 +58,7 @@ const AddChild = () => {
             >
                 <View style={globalStyle.centeredView}>
                     <View style={globalStyle.modalView}>
+                        <ScrollView>
                         <Text style={globalStyle.modalText}>Hello World!</Text>
                         <AddParentForm csrfToken={csrfToken} refresh={toggleRefreshParents}/>
                         <Pressable
@@ -60,6 +66,7 @@ const AddChild = () => {
                             onPress={() => setParentModalVisible(!parentModalVisible)}>
                             <Text style={styles.textStyle}>Hide Modal</Text>
                         </Pressable>
+                        </ScrollView>
                     </View>
                 </View>
             </Modal>
@@ -74,6 +81,7 @@ const AddChild = () => {
             >
                 <View style={globalStyle.centeredView}>
                     <View style={globalStyle.modalView}>
+                        <ScrollView>
                         <Text style={globalStyle.modalText}>Insert the Doctor's information</Text>
                         <AddDoctorForm csrfToken={csrfToken} refresh={toggleRefreshDoctors}/>
                         <Pressable
@@ -81,6 +89,7 @@ const AddChild = () => {
                             onPress={() => setDoctorModalVisible(!doctorModalVisible)}>
                             <Text style={styles.textStyle}>Hide Modal</Text>
                         </Pressable>
+                        </ScrollView>
                     </View>
                 </View>
             </Modal>
@@ -116,14 +125,14 @@ const AddDoctorForm = ({csrfToken, refresh}) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(formData);
-        PostRequest("/createChild/createDoctor", formData , setCreatedDoctor, token, refresh)();
+        PostRequest("/createChild/createDoctor", formData, setCreatedDoctor, token, refresh)();
         console.log("createdDoctor: " + createdDoctor);
         document.getElementById("doctor-form").reset();
         setDoctorInfoVisible(true);
     };
 
     let doctorInfo = [];
-    if(doctorInfoVisible && createdDoctor){
+    if (doctorInfoVisible && createdDoctor) {
         doctorInfo.push(<Doctor doctor={createdDoctor} bookable={false} key={0}/>)
     }
 
@@ -134,34 +143,36 @@ const AddDoctorForm = ({csrfToken, refresh}) => {
             <label>
                 First Name:
                 <input type="text" name="name" required={true} onChange={handleChange}/>
-            </label><br />
+            </label><br/>
             <label>
                 Surname:
                 <input type="text" name="surname" required={true} onChange={handleChange}/>
-            </label><br />
+            </label><br/>
             <label>
                 CF:
                 <input type="text" name="cf" required={true} onChange={handleChange}/>
-            </label><br />
+            </label><br/>
             <label>
                 Type:
                 <input type="text" name="type" required={true} onChange={handleChange}/>
-            </label><br />
+            </label><br/>
             <label>
                 Email:
-                <input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required={true} onChange={handleChange} />
-            </label><br />
+                <input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required={true}
+                       onChange={handleChange}/>
+            </label><br/>
             <label>
                 Telephone:
-                <input type="tel" pattern="\(?[\d +\/()–-]{6,}\)?[ .\/–-]?\d+" name="telephone" required={true} onChange={handleChange}/>
-            </label><br />
+                <input type="tel" pattern="\(?[\d +\/()–-]{6,}\)?[ .\/–-]?\d+" name="telephone" required={true}
+                       onChange={handleChange}/>
+            </label><br/>
             <label>
                 Address:
                 <input type="text" name="address"/>
-            </label><br />
-            <input type="submit" value="Submit" />
+            </label><br/>
+            <input type="submit" value="Submit"/>
         </form>
-    <br/><br/>
+        <br/><br/>
         {doctorInfo}
     </View>)
 }
@@ -178,6 +189,7 @@ const AddParentForm = ({csrfToken, refresh}) => {
 
     const [parentFormData, updateParentFormData] = React.useState(initialFormData);
     const [parentInfoVisible, setParentInfoVisible] = useState(false);
+    const [phoneFormVisible, setPhoneFormVisible] = useState(false);
     const [createdParent, setCreatedParent] = useState(null);
 
     const handleParentFormChange = (e) => {
@@ -190,18 +202,21 @@ const AddParentForm = ({csrfToken, refresh}) => {
     const handleParentFormSubmit = (e) => {
         e.preventDefault();
         console.log(parentFormData);
-        PostRequest("/createChild/createParent", parentFormData , setCreatedParent, token, refresh)();
+        PostRequest("/createChild/createParent", parentFormData, setCreatedParent, token, refresh)();
         console.log("createdParent: " + createdParent);
-        setParentInfoVisible(true);
+        if (!parentInfoVisible)
+            setParentInfoVisible(true);
         document.getElementById("parent-form").reset();
         updateParentFormData(initialFormData);
     };
 
     let parentInfo = [];
-    if(parentInfoVisible && createdParent){
+    if (parentInfoVisible && createdParent) {
         parentInfo.push(<Text style={globalStyle.subTitle} key={0}>Parent</Text>);
         parentInfo.push(<Text key={1}>{createdParent.name} {createdParent.surname} ({createdParent.cf})</Text>);
         parentInfo.push(<Text key={2}>email: {createdParent.email}</Text>);
+        if (!phoneFormVisible)
+            setPhoneFormVisible(true);
     }
 
     return (<View>
@@ -210,27 +225,104 @@ const AddParentForm = ({csrfToken, refresh}) => {
             <label>
                 First Name:
                 <input type="text" name="name" required={true} onChange={handleParentFormChange}/>
-            </label><br />
+            </label><br/>
             <label>
                 Surname:
                 <input type="text" name="surname" required={true} onChange={handleParentFormChange}/>
-            </label><br />
+            </label><br/>
             <label>
                 CF:
                 <input type="text" name="cf" required={true} onChange={handleParentFormChange}/>
-            </label><br />
+            </label><br/>
             <label>
                 Email:
-                <input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" onChange={handleParentFormChange}/>
-            </label><br />
-            <input type="submit" value="Submit" />
+                <input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                       onChange={handleParentFormChange}/>
+            </label><br/>
+            <input type="submit" value="Submit"/>
         </form>
         <View style={globalStyle.container}>
-        {parentInfo}
+            {parentInfo}
+            <PhoneForm visible={phoneFormVisible} parent={createdParent} csrfToken={csrfToken}/>
         </View>
+
     </View>)
 }
-//FIXME if form submit is successful add telephone number
+
+const PhoneForm = ({visible, parent, csrfToken}) => {
+    if (visible && parent) {
+        const initialFormData = Object.freeze({
+            primarykey: {
+                idParent: parent.id,
+                telephone: "",
+            },
+            description: "",
+        });
+
+        const token = csrfToken.token;
+        const [numbers, setNumbers] = useState(null);
+        const [refreshNumbers, setRefreshNumbers] = useState(false);
+
+        const toggleRefresh = () => setRefreshNumbers(!refreshNumbers);
+
+        const [telephoneFormData, updateTelephoneFormData] = React.useState(initialFormData);
+
+        useEffect(Fetch("/telephoneNumbers/" + parent.id, setNumbers), [refreshNumbers]);
+
+        const handleTelephoneFormSubmit = (e) => {
+            e.preventDefault()
+            console.log(telephoneFormData);
+            PostRequest("/telephone", telephoneFormData, () => {}, token, toggleRefresh)();
+            document.getElementById("telephone-form").reset();
+        };
+
+
+        const handleDescriptionChange = (e) => {
+            updateTelephoneFormData({
+                ...telephoneFormData,
+                description: e.target.value
+            });
+        };
+
+        const handleTelephoneChange = (e) => {
+            updateTelephoneFormData({
+                ...telephoneFormData,
+
+                primarykey: {
+                    idParent : parent.id,
+                    telephone: e.target.value
+                }
+            })
+        }
+
+        /*let numbersTag = [];
+        if (numbers)
+            for (let i = 0; i < numbers.length; i++) {
+                numbersTag.push(<Text key={i}>Telefono {i + 1}: {numbers[i].primarykey.telephone} {(numbers[i].description)? numbers[i].description: "" })</Text>);
+            }*/
+
+        return (<View>
+                <ParentPhones numbers={numbers} />
+                {"\n"}
+                <View><Text>Add a telephone number to this parent:</Text>
+                    <form onSubmit={handleTelephoneFormSubmit} id="telephone-form">
+                        <label>
+                            Telephone Number:
+                            <input type="tel" pattern="\(?[\d +\/()–-]{6,}\)?[ .\/–-]?\d+" name="telephone"
+                                   required={true}
+                                   onChange={handleTelephoneChange}/>
+                        </label><br/>
+                        <label>
+                            Description:
+                            <input type="text" name="description" onChange={handleDescriptionChange}/>
+                        </label><br/>
+                        <input type="submit" value="Add Telephone Number"/>
+                    </form>
+                </View>
+            </View>
+        );
+    }
+}
 
 
 const AddChildForm = ({parentOptions, doctorOptions, setParentModalVisible, setDoctorModalVisible, csrfToken}) => {
@@ -239,9 +331,9 @@ const AddChildForm = ({parentOptions, doctorOptions, setParentModalVisible, setD
         name: "",
         surname: "",
         dob: "",
-        parent1 : "",
+        parent1: "",
         parent2: null,
-        doctor : "",
+        doctor: "",
     });
     const [selectedParent2, setSelectedParent2] = useState([]);
 
@@ -297,17 +389,18 @@ const AddChildForm = ({parentOptions, doctorOptions, setParentModalVisible, setD
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(formData);
-        PostRequest("/createChild/create", formData , setCreatedChild, token, () =>{})();
+        PostRequest("/createChild/create", formData, setCreatedChild, token, () => {
+        })();
         document.getElementById("child-form").reset();
         setChildInfoVisible(true);
     };
 
     let childInfo = [];
-    if(childInfoVisible && createdChild){
+    if (childInfoVisible && createdChild) {
         childInfo.push(<Child child={createdChild} key={0}/>);
-        if(createdChild.parent1)
+        if (createdChild.parent1)
             childInfo.push(<Parents parent1={createdChild.parent1} parent2={createdChild.parent2} key={1}/>);
-        if(createdChild.doctor)
+        if (createdChild.doctor)
             childInfo.push(<Doctor doctor={createdChild.doctor} bookable={false} key={2}/>)
     }
 
@@ -317,27 +410,27 @@ const AddChildForm = ({parentOptions, doctorOptions, setParentModalVisible, setD
                 <label>
                     First Name:
                     <input type="text" name="name" required={true} onChange={handleChange}/>
-                </label><br />
+                </label><br/>
                 <label>
                     Surname:
                     <input type="text" name="surname" required={true} onChange={handleChange}/>
-                </label><br />
+                </label><br/>
                 <label>
                     CF:
                     <input type="text" name="cf" required={true} onChange={handleChange}/>
-                </label><br />
+                </label><br/>
                 <label>
                     Date of Birth:
                     <input type="date" name="dob" required={true} onChange={handleDateChange}/>
-                </label><br />
+                </label><br/>
                 <label>
                     Address:
                     <input type="text" name="address" required={true} onChange={handleChange}/>
-                </label><br />
+                </label><br/>
                 <label>
                     Parent1:
-                <Select options={parentOptions} name="parent1" id="parent1" onChange={handleSelectParent1Change}/>
-                </label><br />
+                    <Select options={parentOptions} name="parent1" id="parent1" onChange={handleSelectParent1Change}/>
+                </label><br/>
                 <label>
                     Parent 2:<Select
                     options={parentOptions}
@@ -345,25 +438,26 @@ const AddChildForm = ({parentOptions, doctorOptions, setParentModalVisible, setD
                     name="parent2"
                     id="parent2"
                     onChange={handleSelectParent2Change}
-                /></label><br />
+                /></label><br/>
                 <button type="button" onClick={handleClear}>
                     Reset value parent 2
-                </button><br /><br />
+                </button>
+                <br/><br/>
                 <Pressable
                     style={[styles.button]}
                     onPress={() => setParentModalVisible(true)}>
                     <Text style={styles.textStyle}>Add a parent</Text>
-                </Pressable> <br /><br />
-            <label>
-                Doctor:
-            <Select options={doctorOptions} name="doctor" onChange={handleSelectDoctorChange}/>
-            </label>
+                </Pressable> <br/><br/>
+                <label>
+                    Doctor:
+                    <Select options={doctorOptions} name="doctor" onChange={handleSelectDoctorChange}/>
+                </label>
                 <Pressable
                     style={[styles.button]}
                     onPress={() => setDoctorModalVisible(true)}>
                     <Text style={styles.textStyle}>Add a doctor</Text>
                 </Pressable>
-                <input type="submit" value="Submit" />
+                <input type="submit" value="Submit"/>
             </form>
             {childInfo}
         </View>
@@ -390,11 +484,23 @@ const styles = StyleSheet.create({
     },
     select: {
         margin: 4,
-    }
+    },
+    /*overlay: {
+        //background: "rgba(0, 0, 0, 0.5)",
+        flex: 1,
+        //height: 200,
+        overflowY: "scroll"
+    },*/
+    /*hidden: {
+        flex: 1,
+        overflow: "hidden",
+    },
+    overflowdefault: {
+        overflow: "scroll",
+    }*/
 
 });
 
 
-
 //value={this.state.value} onChange={this.handleChange}
-export { AddChild };
+export {AddChild};

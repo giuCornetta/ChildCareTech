@@ -4,12 +4,31 @@ import React from "react";
 
 const Parents = (props) => {
     let parentsTags = [];
-    parentsTags[0] = contactNameAndCF(props.parent1, 0, "Parent 1");
-    if(props.parent2)
-        parentsTags[1] = contactNameAndCF(props.parent2, 1, "Parent 2");
+    parentsTags.push(contactNameAndCF(props.parent1, 0, "Parent 1"));
+    if(props.phone){
+        parentsTags.push(<ParentPhones numbers={props.parent1Numbers} key={1}/>);
+    }
+    if(props.parent2) {
+        parentsTags.push(contactNameAndCF(props.parent2, 2, "Parent 2"));
+        parentsTags.push(<ParentPhones numbers={props.parent2Numbers} key={1}/>);
+    }
     return (<View style={[globalStyle.container, style.container2]}><Text style={globalStyle.subTitle}>Parents</Text>{parentsTags}</View>);
 };
-//TODO aggiungere telefoni genitori
+
+
+const ParentPhones = ({numbers}) => {
+    if(numbers){
+        let numbersTag = [];
+
+        for (let i = 0; i < numbers.length; i++) {
+            numbersTag.push(<Text key={i}>Telefono {i + 1}: {numbers[i].primarykey.telephone} {(numbers[i].description)? numbers[i].description: "" })</Text>);
+        }
+        return (<View>
+            {numbersTag}
+            </View>
+            );
+    }
+}
 
 const Doctor = (props) => {
     let button =[];
@@ -46,7 +65,7 @@ function Contacts(props) {
             <View style={[globalStyle.container, style.container2]}>
                 <Text style={globalStyle.subTitle}>Contacts</Text>
                 <Text>{props.contacts.map((element, i) => {
-                    return ("Contact " + i + ": " + element.name + " " + element.surname + " ("+ element.cf + ")" + "/n" + "Phone: " + element.telephone);
+                    return ("Contact " + (i  + 1) + ": " + element.name + " " + element.surname + " ("+ element.cf + ")" + "\n" + "Phone: " + element.telephone);
                 })}</Text>
             </View>
         );
@@ -86,4 +105,4 @@ const style = StyleSheet.create({
     }
 });
 
-export { Child, Contacts, Doctor, Parents, Staff };
+export { Child, Contacts, Doctor, Parents, Staff, ParentPhones };

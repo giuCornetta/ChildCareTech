@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 @Data
 public class RegistrationForm {
 
-    //TODO Logout
+    //TODO logout
     @NotBlank(message = "Username is required")
     @Size(max = 100, message = "Username must be less than 100 characters long")
     private String username;

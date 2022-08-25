@@ -1,13 +1,14 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from "react-native-web";
 import {globalStyle} from "./globalStyle.js";
+import {Fetch, PostRequest} from "./networkUtils";
 
 //TODO delete implemented
 const DATA = [
     {
         title: "Attendance",
         link: "/attendance",
-        implemented: false
+        implemented: true
     },
     {
         title: "Details",
@@ -20,6 +21,11 @@ const DATA = [
     {
         title: "Appointments",
         link: "/appointments", implemented: false
+    },
+    {
+        title: "Cafeteria",
+        link: "/cafeteria",
+        implemented: false
     }
 ];
 
@@ -33,6 +39,9 @@ const Item = ({ item, onPress}) => {
 
 const Home = () => {
 
+    const [csrfToken, setCsrfToken] = useState([]);
+    useEffect(Fetch('/csrf', setCsrfToken), [])
+
     const renderItem = ({ item }) => { //prende in input un item e lo restituisce modificato
             return (
                 <Item
@@ -44,6 +53,12 @@ const Home = () => {
 
     return (
         <View style={globalStyle.container}>
+            <TouchableOpacity onPress={PostRequest("/logout", null, () => {}, csrfToken.token, () => {})} style={[globalStyle.button, globalStyle.rightSideButton]}>
+                <Text>Logout</Text>
+            </TouchableOpacity>
+            <form action="/logout" method="post">
+                <input type="submit" value="LOGOUT"/>
+            </form>
             <Text style={globalStyle.title}>Opzioni disponibili:</Text>
             <FlatList
                 data={DATA}
