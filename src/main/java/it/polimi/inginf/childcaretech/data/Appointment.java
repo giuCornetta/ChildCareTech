@@ -52,6 +52,15 @@ public class Appointment {
     @Nullable
     private String description;
 
+    public Appointment(Child child, Doctor doctor, Staff staff, LocalDate date, LocalTime time, String description) {
+        this.child = child;
+        this.doctor = doctor;
+        this.staff = staff;
+        this.date = date;
+        this.time = time;
+        this.description = description;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

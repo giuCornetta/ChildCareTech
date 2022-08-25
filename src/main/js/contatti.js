@@ -29,7 +29,7 @@ const ChildDetails = ({child}) => {
             <Child child={child}/>
             <Parents parent1={child.parent1} parent2={child.parent2} phone={true} parent1Numbers={parent1Phones} parent2Numbers={parent2Phones}/>
             <Contacts contacts={contacts}/>
-            <Doctor doctor={child.doctor} bookable={true}/>
+            <Doctor doctor={child.doctor}/>
         </View>
     );
 };

@@ -12,4 +12,9 @@ public interface ChildRepository extends CrudRepository<Child, Integer> { //Enti
 
     @Query(value = "Select * from Child where id not in (Select ID_Child from ChildAttendance where date = :date)", nativeQuery = true)
     List<Child> findChildByIdIsNotInChildAttendance(@Param("date") Timestamp date);
+
+
+    @Query("Select doctor.id from Child where id= :id")
+    int findDoctorById(@Param("id") int id);
+
 }

@@ -51,12 +51,17 @@ const Home = () => {
             );
     };
 
+    const submit = (e) => {
+        e.preventDefault();
+        PostRequest(PostRequest("/logout", null, () => {}, csrfToken.token, () => {}))();
+    }
+
     return (
         <View style={globalStyle.container}>
             <TouchableOpacity onPress={PostRequest("/logout", null, () => {}, csrfToken.token, () => {})} style={[globalStyle.button, globalStyle.rightSideButton]}>
                 <Text>Logout</Text>
             </TouchableOpacity>
-            <form action="/logout" method="post">
+            <form onSubmit={submit}>
                 <input type="submit" value="LOGOUT"/>
             </form>
             <Text style={globalStyle.title}>Opzioni disponibili:</Text>

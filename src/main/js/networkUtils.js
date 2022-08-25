@@ -28,7 +28,15 @@ const PostRequest = (_url, _responseBody , _setter, _csrf, _refresh) => {
                 'X-CSRF-TOKEN': _csrf,
             },
         })
-            .then((response) => response.json())
+            .then((response) => {
+                    if(response.status===302){
+                        window.open(response.headers.get("Location"), "_self");
+                    }
+                    else{
+                        response.json();
+                    }
+                }
+            )
             .then((data) => {
                 console.log(data);
                 _setter(data);

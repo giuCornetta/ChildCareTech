@@ -4,19 +4,7 @@ import {globalStyle} from "./globalStyle";
 import Select from 'react-select'
 import {Fetch, PostRequest} from "./networkUtils";
 import {Child, Doctor, ParentPhones, Parents} from "./PeopleComponents";
-
-function padTo2Digits(num) {
-    return num.toString().padStart(2, '0');
-}
-
-function formatDate(string) {
-    let date = new Date(string);
-    return [
-        padTo2Digits(date.getDate()),
-        padTo2Digits(date.getMonth() + 1),
-        date.getFullYear(),
-    ].join('/');
-}
+import {formatDate} from "./utils";
 
 const AddChild = () => {
     const [parents, setParents] = useState([]);
@@ -133,7 +121,7 @@ const AddDoctorForm = ({csrfToken, refresh}) => {
 
     let doctorInfo = [];
     if (doctorInfoVisible && createdDoctor) {
-        doctorInfo.push(<Doctor doctor={createdDoctor} bookable={false} key={0}/>)
+        doctorInfo.push(<Doctor doctor={createdDoctor} key={0}/>)
     }
 
     return (<View>
@@ -357,10 +345,10 @@ const AddChildForm = ({parentOptions, doctorOptions, setParentModalVisible, setD
     };
 
     const handleDateChange = (e) => {
-        let date = e.target.value;
+        let string = e.target.value;
         updateFormData({
             ...formData,
-            dob: formatDate(date)
+            dob: formatDate(string)
         });
     }
 
@@ -401,7 +389,7 @@ const AddChildForm = ({parentOptions, doctorOptions, setParentModalVisible, setD
         if (createdChild.parent1)
             childInfo.push(<Parents parent1={createdChild.parent1} parent2={createdChild.parent2} key={1}/>);
         if (createdChild.doctor)
-            childInfo.push(<Doctor doctor={createdChild.doctor} bookable={false} key={2}/>)
+            childInfo.push(<Doctor doctor={createdChild.doctor} key={2}/>)
     }
 
     return (
@@ -482,25 +470,8 @@ const styles = StyleSheet.create({
     textStyle: {
         color: "white",
     },
-    select: {
-        margin: 4,
-    },
-    /*overlay: {
-        //background: "rgba(0, 0, 0, 0.5)",
-        flex: 1,
-        //height: 200,
-        overflowY: "scroll"
-    },*/
-    /*hidden: {
-        flex: 1,
-        overflow: "hidden",
-    },
-    overflowdefault: {
-        overflow: "scroll",
-    }*/
 
 });
 
 
-//value={this.state.value} onChange={this.handleChange}
 export {AddChild};

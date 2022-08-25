@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity, View} from "react-native-web";
+import {StyleSheet, Text, View} from "react-native-web";
 import {globalStyle} from "./globalStyle";
 import React from "react";
 
@@ -31,19 +31,19 @@ const ParentPhones = ({numbers}) => {
 }
 
 const Doctor = (props) => {
-    let button =[];
-    if(props.bookable){
+    /*let button =[];
+    if(props.bookable){ //FIXME ADD??
         button = (<TouchableOpacity onPress={() => {window.open("/visits/book/" + props.doctor.id, "_self")}} style={[globalStyle.button, globalStyle.reminderButton, globalStyle.centerButton, style.bookVisit]}>
             <Text>Book Appointment (WIP)</Text>
         </TouchableOpacity>);
-    }
+        {button} //To add after type
+    }*/
     return (
         <View style={[globalStyle.container, style.container2]}><Text style={globalStyle.subTitle}>Doctor</Text>
             <Text>{props.doctor.name} {props.doctor.surname} ({props.doctor.cf})</Text>
             <Text>Phone: {props.doctor.telephone}</Text>
             <Text>Email: {props.doctor.email}</Text>
             <Text>Type: {props.doctor.type}</Text>
-            {button}
         </View>
     )
 }

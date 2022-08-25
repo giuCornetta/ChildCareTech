@@ -44,7 +44,7 @@ public class CreateChildController {
     }
 
     @GetMapping("/doctors")
-    public List<FormSelection> getDosctorsSelection(){
+    public List<FormSelection> getDoctorsSelection(){
         List<Doctor> doctors = (List<Doctor>) doctorRepository.findAll();
         return doctors.stream().map((doctor) -> new FormSelection(doctor.getId(), doctor.getName(), doctor.getSurname(), doctor.getCf())).toList();
     }
