@@ -13,4 +13,9 @@ public class FormSelection implements Serializable {
         this.value = id;
         this.label = name + " " + surname + " ("+ cf + ")";
     }
+
+    public FormSelection(int id, String name) {
+        this.value = id;
+        this.label = name;
+    }
 }

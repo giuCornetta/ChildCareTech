@@ -1,4 +1,4 @@
-package it.polimi.inginf.childcaretech.data.telephoneNumbers;
+package it.polimi.inginf.childcaretech.data;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;

@@ -1,6 +1,7 @@
 import {StyleSheet, Text, View} from "react-native-web";
 import {globalStyle} from "./globalStyle";
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {Fetch} from "./networkUtils";
 
 const Parents = (props) => {
     let parentsTags = [];
@@ -10,7 +11,7 @@ const Parents = (props) => {
     }
     if(props.parent2) {
         parentsTags.push(contactNameAndCF(props.parent2, 2, "Parent 2"));
-        parentsTags.push(<ParentPhones numbers={props.parent2Numbers} key={1}/>);
+        parentsTags.push(<ParentPhones numbers={props.parent2Numbers} key={3}/>);
     }
     return (<View style={[globalStyle.container, style.container2]}><Text style={globalStyle.subTitle}>Parents</Text>{parentsTags}</View>);
 };
@@ -81,13 +82,37 @@ function Child(props) {
             <Text>CF: {bambino.cf}</Text>
             <Text>Date of Birth: {bambino.dob}</Text>
             <Text>Address: {bambino.address}</Text>
-            <Allergie child={bambino}/></View>
+        </View>
     )
 }
 
-const Allergie = (props) => {
-    let bambino = props.child;
-    return (<Text style={globalStyle.reminder}>INSERIRE ALLERGIE</Text>);
+const Allergies = ({child, refresh}) => {
+
+
+    const [allergies, setAllergies] = useState(null)
+
+
+    useEffect( () => {
+        if(child)
+            Fetch("/allergies/" + child, setAllergies)()
+        }, [refresh]);
+
+
+    let allergiesTag = [];
+    if(allergies){
+        for(let i=0; i<allergies.length; i++){
+            allergiesTag.push(<Text key={i}>{allergies[i].name}</Text>);
+        }
+    } else {
+        allergiesTag = (<Text style={{color: "gray"}}>This child does not have any allergies</Text>);
+    }
+
+
+
+    return (<View>
+        <Text style={[globalStyle.reminder, globalStyle.subTitle]}>Allergies</Text>
+        {allergiesTag}
+    </View>);
 }
 
 const contactNameAndCF = (contact, i, type) => {
@@ -95,6 +120,7 @@ const contactNameAndCF = (contact, i, type) => {
         {type}: {contact.name} {contact.surname} ({contact.cf})
     </Text>);
 }
+
 
 const style = StyleSheet.create({
     container2: {
@@ -105,4 +131,4 @@ const style = StyleSheet.create({
     }
 });
 
-export { Child, Contacts, Doctor, Parents, Staff, ParentPhones };
+export { Child, Contacts, Doctor, Parents, Staff, ParentPhones, Allergies };

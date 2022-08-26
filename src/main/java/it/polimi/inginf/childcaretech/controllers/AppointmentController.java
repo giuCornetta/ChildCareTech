@@ -2,7 +2,7 @@ package it.polimi.inginf.childcaretech.controllers;
 
 import it.polimi.inginf.childcaretech.data.*;
 import it.polimi.inginf.childcaretech.data.formData.FormSelection;
-import it.polimi.inginf.childcaretech.data.telephoneNumbers.CreatedAppointment;
+import it.polimi.inginf.childcaretech.data.CreatedAppointment;
 import it.polimi.inginf.childcaretech.repositories.AppointmentRepository;
 import it.polimi.inginf.childcaretech.repositories.ChildRepository;
 import it.polimi.inginf.childcaretech.repositories.DoctorRepository;

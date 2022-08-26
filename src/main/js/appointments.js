@@ -149,9 +149,9 @@ const BookVisit = ({setModalVisible, children, staff, refresh, csrfToken}) => {
                                 <input type="submit" value="Submit"/>
                             </form>
                         <Pressable
-                            style={[global.button]}
+                            style={[styles.button]}
                             onPress={() => setModalVisible(false)}>
-                            <Text>Hide Modal</Text>
+                            <Text style={styles.textStyle}>Hide Modal</Text>
                         </Pressable>
                     </ScrollView>
                 </View>
@@ -184,10 +184,28 @@ const AppointmentDetails = ({selectedAppointment}) => {
     }
 }
 
-const styles= StyleSheet.create({
+
+const styles = StyleSheet.create({
+
     select: {
         margin: 4,
     },
-})
+    button: {
+        borderRadius: 10,
+        padding: 10,
+        elevation: 2,
+        backgroundColor: "#2196F3",
+    },
+    /*buttonOpen: {
+        backgroundColor: "#F194FF",
+    },
+    buttonClose: {
+        backgroundColor: "#2196F3",
+    },*/
+    textStyle: {
+        color: "white",
+    },
+
+});
 
 export { Appointments };

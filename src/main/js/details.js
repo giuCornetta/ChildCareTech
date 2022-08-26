@@ -9,15 +9,9 @@ import { TableComponent } from "./table";
 const Details = () => {
 
     const [children, setChildren] = useState([]);
-    const [modalVisible, setModalVisible] = useState(false);
 
     useEffect( Fetch ('/details/children', setChildren), []);
 
-    let textButton = [];
-    if(!modalVisible)
-        textButton.push(<Text key={0}>Add a child(WIP)</Text>);
-    else
-        textButton.push(<Text key={0}>Close Form</Text>);
 
     return (
         <View style={globalStyle.container}>
@@ -93,25 +87,6 @@ const print = (child) => {
             />*/
 
 
-const styles = StyleSheet.create({
-
-    button: {
-        borderRadius: 10,
-        padding: 10,
-        elevation: 2,
-        backgroundColor: "#2196F3",
-    },
-    /*buttonOpen: {
-        backgroundColor: "#F194FF",
-    },
-    buttonClose: {
-        backgroundColor: "#2196F3",
-    },*/
-    textStyle: {
-        color: "white",
-    },
-
-});
 
 
 export { Details };
