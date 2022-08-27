@@ -54,7 +54,7 @@ const Appointments = () => {
 
 const BookVisit = ({setModalVisible, children, staff, refresh, csrfToken}) => {
     const [selectedChild, setSelectedChild] = useState([]);
-    const [doctor, setDoctor] = useState({});
+    const [doctor, setDoctor] = useState(null);
     useEffect( () => {if(doctor) {
         Fetch("/appointments/doctor/" + selectedChild.value, setDoctor)();
     }}, [selectedChild]);
@@ -113,7 +113,6 @@ const BookVisit = ({setModalVisible, children, staff, refresh, csrfToken}) => {
             <View style={globalStyle.centeredView}>
                 <View style={globalStyle.modalView}>
                     <ScrollView>
-                        <Text style={globalStyle.modalText}>Hello World!</Text>
                             <form onSubmit={handleSubmit} id="appointment-form">
                                 <label>
                                     Child:

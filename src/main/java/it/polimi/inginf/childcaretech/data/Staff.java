@@ -26,7 +26,7 @@ import java.util.Objects;
 //Generates a Constructor with required arguments
 @NoArgsConstructor(access= AccessLevel.PUBLIC, force=true)
 @RequiredArgsConstructor
-@JsonIgnoreProperties("password")
+@JsonIgnoreProperties({"password", "enabled", "authorities", "accountNonLocked", "accountNonExpired", "credentialsNonExpired"})
 public class Staff implements UserDetails {
 
     private static final long serialVersionUID = 1L;

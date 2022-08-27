@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom/client';
 import {Attendance} from "./attendance";
 import {AddChild} from "./addChild";
 import {Cafeteria} from "./cafeteria";
+import {Trips} from "./trips";
 
 let component, idContainer;
 
@@ -27,6 +28,9 @@ if(document.getElementById('home')){
 } else if(document.getElementById('cafeteria')){
     component = <Cafeteria />;
     idContainer = 'cafeteria';
+} else if(document.getElementById('trips')){
+    component = <Trips />;
+    idContainer = 'trips';
 }
 
 const root = ReactDOM.createRoot(document.getElementById(idContainer));

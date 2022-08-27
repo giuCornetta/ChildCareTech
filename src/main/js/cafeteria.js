@@ -59,21 +59,27 @@ const Cafeteria = () => {
             ordersTag.push(<TableComponent menu={dishes} children={listOfChildren} date={date} refresh={toggleRefresh} csrfToken={csrfToken} key={0}/>);
         }
     } else {
-        ordersTag.push(<Text>The menu for this day is not ready yet!</Text>)
+        ordersTag.push(<Text key={0}>The menu for this day is not ready yet!</Text>)
     }
 
+    let maxDay = new Date();
+    maxDay.setDate(maxDay.getDate() + 7);
+
     const handleChange = (e) => {
-        setDate(new Date(e.target.value));
+        let date = new Date(e.target.value);
+        let minDate = new Date("2022-08-25");
+        if(!(date < minDate || maxDay < date)){
+            setDate(date);
+        }
     }
-    let day = new Date();
-    day.setDate(day.getDate() + 7)
+
 
     return (<View style={globalStyle.container}>
         <TouchableOpacity onPress={() => {window.open("/", "_self")}} style={[globalStyle.button, globalStyle.rightSideButton]}>
             <Text>Go back to Home</Text>
         </TouchableOpacity>
         <form>
-            <input type="date" value={date.toISOString().substring(0, 10)} min="2022-08-25" max={day.toISOString().substring(0, 10)} onChange={handleChange}/>
+            <input type="date" value={date.toISOString().substring(0, 10)} min="2022-08-25" max={maxDay.toISOString().substring(0, 10)} onChange={handleChange}/>
         </form>
         {ordersTag}
         <Ordered orders={orders}/>

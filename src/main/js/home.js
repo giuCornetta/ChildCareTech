@@ -15,8 +15,8 @@ const DATA = [
         link: "/details", implemented: true
     },
     {
-        title: "Gite",
-        link: "/gite", implemented: false
+        title: "Trips",
+        link: "/trips", implemented: false
     },
     {
         title: "Appointments",
@@ -25,7 +25,7 @@ const DATA = [
     {
         title: "Cafeteria",
         link: "/cafeteria",
-        implemented: false
+        implemented: true
     }
 ];
 

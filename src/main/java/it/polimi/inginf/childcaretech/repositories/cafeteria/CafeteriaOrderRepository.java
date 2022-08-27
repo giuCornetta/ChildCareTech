@@ -1,4 +1,4 @@
-package it.polimi.inginf.childcaretech.repositories;
+package it.polimi.inginf.childcaretech.repositories.cafeteria;
 
 import it.polimi.inginf.childcaretech.data.cafeteria.cafeteriaOrder.CafeteriaOrder;
 import it.polimi.inginf.childcaretech.data.cafeteria.cafeteriaOrder.CafeteriaOrderPK;

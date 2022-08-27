@@ -6,6 +6,7 @@ import it.polimi.inginf.childcaretech.data.cafeteria.cafeteriaOrder.CafeteriaOrd
 import it.polimi.inginf.childcaretech.data.cafeteria.cafeteriaOrder.CafeteriaOrderJoined;
 import it.polimi.inginf.childcaretech.data.formData.FormSelection;
 import it.polimi.inginf.childcaretech.repositories.*;
+import it.polimi.inginf.childcaretech.repositories.cafeteria.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -47,7 +48,12 @@ public class CafeteriaController {
     public CafeteriaMenu getTodaysMenu(@PathVariable("date") String dateString){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date = LocalDate.parse(dateString, formatter);
-        return cafeteriaMenuRepository.findByDate(date).get(0);
+        List<CafeteriaMenu> menus = cafeteriaMenuRepository.findByDate(date);
+        CafeteriaMenu menu = null;
+        if(!menus.isEmpty())
+            return menus.get(0);
+        else
+            return menu;
     }
 
     //@GetMapping("/menu/{date}) //restituisce anche quelli di oggi
@@ -57,7 +63,7 @@ public class CafeteriaController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date = LocalDate.parse(dateString, formatter);
         List<Child> children = childRepository.findChildNotAllergicTo(dishId, date);
-        return children.stream().map((staff) -> new FormSelection(staff.getId(), staff.getName(), staff.getSurname(), staff.getCf())).toList();
+        return children.stream().map((child) -> new FormSelection(child.getId(), child.getName(), child.getSurname(), child.getCf())).toList();
     }
 
     @GetMapping("/history/orders/{date}")
