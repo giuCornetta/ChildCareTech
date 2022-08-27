@@ -11,15 +11,22 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 @RequestMapping(path="/details", produces="application/json") //Handles requests for "/anagrafica", ma dato che ho specificato json, un altro controller può occuparsi di /anagrafica
 @CrossOrigin(origins="*")
-public class AnagraficaJsonController {
+public class DetailsController {
 
     private final ChildRepository childRepository;
     private final ContactRepository contactRepo;
 
     @Autowired
-    public AnagraficaJsonController(ChildRepository repo1, ContactRepository repo2){
+    public DetailsController(ChildRepository repo1, ContactRepository repo2){
         this.childRepository = repo1;
         this.contactRepo = repo2;
+    }
+
+    @GetMapping
+    public ModelAndView welcome(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("details.html");
+        return modelAndView;
     }
 
     @GetMapping("/children")

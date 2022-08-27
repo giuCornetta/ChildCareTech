@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface AllergyRepository extends CrudRepository<ChildAllergen, ChildAllergenPK> {
+public interface ChildAllergenRepository extends CrudRepository<ChildAllergen, ChildAllergenPK> {
 
     //@Query(value = "Select * from childallergen where id_child = :child ", nativeQuery = true)
     List<ChildAllergen> findByPrimarykeyIdChild(/*@Param("child")*/ int childId);

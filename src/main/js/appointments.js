@@ -76,14 +76,6 @@ const BookVisit = ({setModalVisible, children, staff, refresh, csrfToken}) => {
 
     const [formData, updateFormData] = React.useState(initialFormData);
 
-    /*const handleDateChange = (e) => {
-        let date_string = e.target.value;
-        updateFormData({
-            ...formData,
-            date: formatDate(date_string)
-        });
-    }*/
-
     const handleChildChange = (e) => {
         setSelectedChild(e);
         updateFormData({
@@ -134,7 +126,7 @@ const BookVisit = ({setModalVisible, children, staff, refresh, csrfToken}) => {
                                 </label><br/>
                                 <label>
                                     Time:
-                                    <input type="time" name="time" required={true} onChange={handleChange}/>
+                                    <input type="time" name="time" required={true} min={(new Date()).toISOString().substring(0, 10)} onChange={handleChange}/>
                                 </label><br/>
                                 <label>
                                     Description:
@@ -158,6 +150,7 @@ const BookVisit = ({setModalVisible, children, staff, refresh, csrfToken}) => {
             </View>
     );
 }
+//FIXME check min date
 
 //FIXME fare in modo che sia un solo staffer a creare la visita
 

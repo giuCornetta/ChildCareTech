@@ -99,7 +99,7 @@ const Allergies = ({child, refresh}) => {
 
 
     let allergiesTag = [];
-    if(allergies){
+    if(allergies && allergies.length>0){
         for(let i=0; i<allergies.length; i++){
             allergiesTag.push(<Text key={i}>{allergies[i].name}</Text>);
         }

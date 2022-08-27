@@ -1,4 +1,4 @@
-package it.polimi.inginf.childcaretech.data.childAllergen;
+package it.polimi.inginf.childcaretech.data.cafeteria.cafeteriaOrder;
 
 import lombok.*;
 
@@ -8,15 +8,14 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-@Entity
 @Getter
 @Setter
 @ToString
+@Entity
 @NoArgsConstructor
-@Table(name="CHILDALLERGEN")
-public class ChildAllergen implements Serializable {
+@Table(name="CAFETERIAORDER")
+public class CafeteriaOrder implements Serializable {
     @EmbeddedId
     @NotNull
-    private ChildAllergenPK primarykey;
-
+    private CafeteriaOrderPK primarykey;
 }

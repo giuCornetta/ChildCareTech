@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {View, Text, TouchableOpacity, StyleSheet} from "react-native-web"
+import {View, Text, TouchableOpacity} from "react-native-web"
 import { Fetch } from './networkUtils.js'
 import { ChildDetails } from "./contatti.js";
 import { root } from "./entryPoint.js";
@@ -27,48 +27,6 @@ const Details = () => {
     );
 };
 
-            //<View>
-            // <Modal
-            //                     animationType="slide"
-            //                     transparent={true}
-            //                     visible={modalVisible}
-            //                     onRequestClose={() => {
-            //                         Alert.alert("Modal has been closed.");
-            //                         setModalVisible(!modalVisible);
-            //                     }}
-            //                 >
-            //
-            //                     <View style={globalStyle.centeredView}>
-            //                         <View style={globalStyle.modalView}>
-            //                             <Text style={globalStyle.modalText}>Hello World!</Text>
-            //                             <AddChildForm />
-            //                             <Pressable
-            //                                 style={[styles.button]}
-            //                                 onPress={() => setModalVisible(!modalVisible)}>
-            //                                 <Text style={styles.textStyle}>Hide Modal</Text>
-            //                             </Pressable>
-            //                         </View>
-            //                     </View>
-            //                 </Modal>
-            //
-            //             </View>
-            //
-
-//<Image source={require('./img/red_cross.png')} />
-
-/*<Pressable
-                    style={[styles.button, styles.buttonOpen]}
-                    onPress={() => setModalVisible(true)}
-                >
-                    <Text style={styles.textStyle}>Show Modal</Text>
-                </Pressable>
-                */
-
-//<AddChild openForm={openForm}/>
-
-
-//TODO add Aggiunta Iscritti -> mettere link giusto
-//<Button title="Go back to Home" onPress={ () => {window.open("/", "_self")}}/>
 
 const pressedChild = (child) => {
     root.render(<ChildDetails child={child}/>);
@@ -77,14 +35,6 @@ const pressedChild = (child) => {
 const print = (child) => {
     return [child.name, child.surname, child.dob];
 }
-
- //FIXME capire come prendere parametri da form
-
-/*<TextInput placeholder="Enter Email" />
-            <TextInput
-                secureTextEntry={true}
-                placeholder="Enter Password"
-            />*/
 
 
 

@@ -4,7 +4,7 @@ import it.polimi.inginf.childcaretech.data.Allergen;
 import it.polimi.inginf.childcaretech.data.childAllergen.ChildAllergen;
 import it.polimi.inginf.childcaretech.data.formData.FormSelection;
 import it.polimi.inginf.childcaretech.repositories.AllergenRepository;
-import it.polimi.inginf.childcaretech.repositories.AllergyRepository;
+import it.polimi.inginf.childcaretech.repositories.ChildAllergenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,19 +16,19 @@ import java.util.List;
 @RequestMapping(produces="application/json")
 public class AllergiesController {
 
-    private AllergyRepository allergyRepository;
+    private ChildAllergenRepository childAllergenRepository;
     private AllergenRepository allergenRepository;
 
     @Autowired
-    public AllergiesController(AllergyRepository allergyRepository, AllergenRepository allergenRepository){
-        this.allergyRepository = allergyRepository;
+    public AllergiesController(ChildAllergenRepository childAllergenRepository, AllergenRepository allergenRepository){
+        this.childAllergenRepository = childAllergenRepository;
         this.allergenRepository = allergenRepository;
     }
 
     @GetMapping("/allergies/{childId}")
     public List<Allergen> getAllergies(@PathVariable("childId") int childId){
         System.out.println("Entered in method");
-        List<ChildAllergen> childAllergens = allergyRepository.findByPrimarykeyIdChild(childId);
+        List<ChildAllergen> childAllergens = childAllergenRepository.findByPrimarykeyIdChild(childId);
         System.out.println("childAllergens: " + childAllergens);
         List<Allergen> allergensNames = new ArrayList<>();
         for(ChildAllergen allergen : childAllergens){
@@ -41,7 +41,7 @@ public class AllergiesController {
     @ResponseStatus(HttpStatus.CREATED)
     public ChildAllergen createNewDoctor(@RequestBody ChildAllergen childAllergen){
         System.out.println("allergene dalla post: " + childAllergen);
-        return allergyRepository.save(childAllergen);
+        return childAllergenRepository.save(childAllergen);
         //return doctorRepository.findById(4).orElse(null); //DEBUG
 
     }

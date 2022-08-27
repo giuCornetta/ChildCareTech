@@ -58,9 +58,11 @@ const AllergiesForm = ({allergens, childId, csrfToken, refresh}) => {
     });
 
     const [formData, updateFormData] = useState(initialFormData)
+    const [allergenInput, setAllergenInput] = useState(null);
 
 
     const handleChange = (e) => {
+        setAllergenInput(e);
         updateFormData({
             primarykey: {
                 idChild: childId,
@@ -73,7 +75,8 @@ const AllergiesForm = ({allergens, childId, csrfToken, refresh}) => {
         e.preventDefault();
         console.log(formData);
         PostRequest("/allergies", formData, ()=>{}, csrfToken.token, refresh)();
-        document.getElementById("allergies-form").reset();
+        setAllergenInput([]);
+
     }
 
     return (
@@ -83,6 +86,7 @@ const AllergiesForm = ({allergens, childId, csrfToken, refresh}) => {
                 options={allergens}
                 name="allergen"
                 onChange={handleChange}
+                value={allergenInput}
             /></label>
             <input type="submit" value="Add"/>
         </form>

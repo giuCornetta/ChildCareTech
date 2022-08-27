@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,6 +14,8 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
+@Entity
+@Table(name="child")
 public class CreatedChild implements Serializable { //implementando serializable può essere inviato tramite JSON ??
 
     @Id
@@ -37,13 +40,13 @@ public class CreatedChild implements Serializable { //implementando serializable
     private String address;
 
     @NotNull
-    private int parent1;
+    private int idParent1;
 
-    @ManyToOne
-    private int parent2;
+    @Nullable
+    private Integer idParent2;
 
     @NotNull
-    private int doctor;
+    private int idDoctor;
 
     @Override
     public boolean equals(Object o) {

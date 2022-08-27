@@ -53,27 +53,24 @@ public class CreateChildController {
     @ResponseStatus(HttpStatus.CREATED)
     public Doctor createNewDoctor(@RequestBody Doctor doctor){
         return doctorRepository.save(doctor);
-        //return doctorRepository.findById(4).orElse(null); //DEBUG
-
     }
 
     @PostMapping(path = "/createParent", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public Parent createNewParent(@RequestBody Parent parent){
         return parentRepository.save(parent);
-        //return parentRepository.findById(6).orElse(null); //DEBUG
     }
 
     @PostMapping(path = "/create", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public Child createNewChild(@RequestBody CreatedChild c){
-        Parent parent1 = parentRepository.findById(c.getParent1()).orElse(null);
-        Parent parent2 = parentRepository.findById(c.getParent2()).orElse(null);
-        Doctor doctor = doctorRepository.findById(c.getDoctor()).orElse(null);
+        Parent parent1 = parentRepository.findById(c.getIdParent1()).orElse(null);
+        Parent parent2 = parentRepository.findById(c.getIdParent2()).orElse(null);
+        Doctor doctor = doctorRepository.findById(c.getIdDoctor()).orElse(null);
 
         Child child = new Child(c.getId(), c.getCf(), c.getName(), c.getSurname(), c.getDob(), c.getAddress(), parent1, parent2, doctor);
 
-        return childRepository.save(child); //FIXME check it works
+        return childRepository.save(child);
     }
 
 }

@@ -42,17 +42,17 @@ public class Child implements Serializable { //implementando serializable può e
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "ID_Parent1")
+    @JoinColumn(name = "idParent1")
     private Parent parent1;
 
     @ManyToOne
-    @JoinColumn(name="ID_Parent2")
+    @JoinColumn(name="idParent2")
     @Nullable
     private Parent parent2;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name="ID_Doctor")
+    @JoinColumn(name="idDoctor")
     private Doctor doctor;
 
     public Child(int id, String cf, String name, String surname, Date dob, String address, Parent parent1, Parent parent2, Doctor doctor) {
