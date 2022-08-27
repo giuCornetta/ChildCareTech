@@ -55,7 +55,7 @@ const Appointments = () => {
 const BookVisit = ({setModalVisible, children, staff, refresh, csrfToken}) => {
     const [selectedChild, setSelectedChild] = useState([]);
     const [doctor, setDoctor] = useState(null);
-    useEffect( () => {if(doctor) {
+    useEffect( () => {if(selectedChild) {
         Fetch("/appointments/doctor/" + selectedChild.value, setDoctor)();
     }}, [selectedChild]);
     useEffect( () => {
@@ -98,7 +98,7 @@ const BookVisit = ({setModalVisible, children, staff, refresh, csrfToken}) => {
     };
 
     let doctorTag;
-    if(doctor){
+    if(selectedChild){
         doctorTag = (<Doctor doctor={doctor} key={0} />);
     }
 
@@ -121,11 +121,11 @@ const BookVisit = ({setModalVisible, children, staff, refresh, csrfToken}) => {
                                 {doctorTag}
                                 <label>
                                     Date:
-                                    <input type="date" name="date" required={true} onChange={handleChange}/>
+                                    <input type="date" name="date" min={(new Date()).toISOString().substring(0, 10)} required={true} onChange={handleChange}/>
                                 </label><br/>
                                 <label>
                                     Time:
-                                    <input type="time" name="time" required={true} min={(new Date()).toISOString().substring(0, 10)} onChange={handleChange}/>
+                                    <input type="time" name="time" required={true} onChange={handleChange}/>
                                 </label><br/>
                                 <label>
                                     Description:

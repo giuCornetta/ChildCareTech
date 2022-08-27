@@ -47,7 +47,6 @@ const AddChild = () => {
                 <View style={globalStyle.centeredView}>
                     <View style={globalStyle.modalView}>
                         <ScrollView>
-                        <Text style={globalStyle.modalText}>Hello World!</Text>
                         <AddParentForm csrfToken={csrfToken} refresh={toggleRefreshParents}/>
                         <Pressable
                             style={[styles.button]}

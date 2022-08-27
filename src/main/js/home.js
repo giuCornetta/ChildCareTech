@@ -16,11 +16,11 @@ const DATA = [
     },
     {
         title: "Trips",
-        link: "/trips", implemented: false
+        link: "/trips", implemented: true
     },
     {
         title: "Appointments",
-        link: "/appointments", implemented: false
+        link: "/appointments", implemented: true
     },
     {
         title: "Cafeteria",

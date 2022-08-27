@@ -5,10 +5,12 @@ import it.polimi.inginf.childcaretech.data.formData.FormSelection;
 import it.polimi.inginf.childcaretech.data.trip.Trip;
 import it.polimi.inginf.childcaretech.data.trip.TripStop;
 import it.polimi.inginf.childcaretech.data.trip.bus.Bus;
+import it.polimi.inginf.childcaretech.data.trip.supervisorStaffTrip.CreatedSupervisorStaffTrip;
 import it.polimi.inginf.childcaretech.data.trip.supervisorStaffTrip.SupervisorStaffTrip;
 import it.polimi.inginf.childcaretech.data.trip.tripRegistration.CreatedTripRegistration;
 import it.polimi.inginf.childcaretech.data.trip.tripRegistration.TripRegistration;
 import it.polimi.inginf.childcaretech.repositories.CreatedChildRepository;
+import it.polimi.inginf.childcaretech.repositories.StaffRepository;
 import it.polimi.inginf.childcaretech.repositories.tripRepositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,11 +31,14 @@ public class TripsController {
     CreatedTripRegistrationRepository createdTripRegistrationRepository;
     BusRepository busRepository;
     SupervisorStaffTripRepository supervisorStaffTripRepository;
+    CreatedSupervisorStaffTripRepository createdSupervisorStaffTripRepository;
+    StaffRepository staffRepository;
 
     @Autowired
-    public TripsController(TripRepository tripRepository, TripStopRepository tripStopRepository, TripRegistrationRepository tripRegistrationRepository,
-                           CreatedChildRepository createdChildRepository, CreatedTripRegistrationRepository createdTripRegistrationRepository, BusRepository busRepository,
-                           SupervisorStaffTripRepository supervisorStaffTripRepository) {
+    public TripsController(TripRepository tripRepository, TripStopRepository tripStopRepository,
+                           TripRegistrationRepository tripRegistrationRepository, CreatedChildRepository createdChildRepository,
+                           CreatedTripRegistrationRepository createdTripRegistrationRepository, BusRepository busRepository,
+                           SupervisorStaffTripRepository supervisorStaffTripRepository, CreatedSupervisorStaffTripRepository createdSupervisorStaffTripRepository, StaffRepository staffRepository) {
         this.tripRepository = tripRepository;
         this.tripStopRepository = tripStopRepository;
         this.tripRegistrationRepository = tripRegistrationRepository;
@@ -41,6 +46,8 @@ public class TripsController {
         this.createdTripRegistrationRepository = createdTripRegistrationRepository;
         this.busRepository = busRepository;
         this.supervisorStaffTripRepository = supervisorStaffTripRepository;
+        this.createdSupervisorStaffTripRepository = createdSupervisorStaffTripRepository;
+        this.staffRepository = staffRepository;
     }
 
     @GetMapping
@@ -66,9 +73,14 @@ public class TripsController {
         return tripRegistrationRepository.findByPrimarykeyIdTrip(tripId);
     }*/
 
-    @GetMapping("/registration/{tripId}/missing")
+    @GetMapping("/registration/children/{tripId}/missing")
     public List<FormSelection> getChildrenNotRegistered(@PathVariable("tripId") int tripId){
         return createdChildRepository.findByIdNotInTripRegistration(tripId).stream().map((child) -> new FormSelection(child.getId(), child.getName(), child.getSurname(), child.getCf())).toList();
+    }
+
+    @GetMapping("/registration/staff/{tripId}/missing")
+    public List<FormSelection> getStaffNotRegistered(@PathVariable("tripId") int tripId){
+        return staffRepository.findByNotInTrip(tripId).stream().map((staff) -> new FormSelection(staff.getId(), staff.getName(), staff.getSurname(), staff.getCf())).toList();
     }
 
     @GetMapping("/buses/{tripId}")
@@ -76,7 +88,7 @@ public class TripsController {
         return busRepository.findByPrimarykeyIdTrip(tripId).stream().map((bus) -> new BusFormSelection(bus.getPrimarykey().getLicensePlate())).toList();
     }
 
-    @PostMapping(value = "/register", consumes = "application/json")
+    @PostMapping(value = "/register/child", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public CreatedTripRegistration registerChildToTrip(@RequestBody CreatedTripRegistration tripRegistration){
         return createdTripRegistrationRepository.save(tripRegistration);
@@ -100,6 +112,31 @@ public class TripsController {
             listOfBusStaff.add(supervisorStaffTripRepository.findByBus(bus.getPrimarykey().getLicensePlate()));
         }
         return listOfBusStaff;
+    }
+
+    @PostMapping(value = "/create", consumes = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Trip createNewTrip(@RequestBody Trip trip){
+        return tripRepository.save(trip);
+    }
+
+
+    @PostMapping(value = "/buses/add", consumes = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Bus registerBusToTrip(@RequestBody Bus bus){
+        return busRepository.save(bus);
+    }
+
+    @PostMapping(value = "/register/staff", consumes = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
+    public CreatedSupervisorStaffTrip registerChildToTrip(@RequestBody CreatedSupervisorStaffTrip tripRegistration){
+        return createdSupervisorStaffTripRepository.save(tripRegistration);
+    }
+
+    @PostMapping(value = "/stops/add", consumes = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
+    public TripStop registerChildToTrip(@RequestBody TripStop tripStop){
+        return tripStopRepository.save(tripStop);
     }
 
 }
