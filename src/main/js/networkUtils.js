@@ -29,8 +29,8 @@ const PostRequest = (_url, _responseBody , _setter, _csrf, _refresh) => {
             },
         })
             .then((response) => {
-                    if(response.status===302){
-                        window.open(response.headers.get("Location"), "_self");
+                    if(response.redirected === true){
+                        window.location.href=response.url;
                     }
                     else{
                         response.json();
