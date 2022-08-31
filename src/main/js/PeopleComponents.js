@@ -58,7 +58,7 @@ function Contacts(props) {
             <View style={[globalStyle.container, style.container2]}>
                 <Text style={globalStyle.subTitle}>Contacts</Text>
                 {props.contacts.length>0? <Text>{props.contacts.map((element, i) => {
-                    return ("Contact " + (i  + 1) + ": " + element.name + " " + element.surname + " ("+ element.cf + ")" + "\n" + "Phone: " + element.telephone);
+                    return ("Contact " + (i  + 1) + ": " + element.name + " " + element.surname + " ("+ element.cf + ")" + "\n" + "Phone: " + element.telephone + "\n\n");
                 })}</Text> : <Text style={{color: "gray"}}>There are no contacts</Text>}
             </View>
         );
