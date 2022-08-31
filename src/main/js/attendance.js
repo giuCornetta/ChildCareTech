@@ -20,7 +20,7 @@ const Attendance = () => {
             <TouchableOpacity onPress={() => {window.open("/", "_self")}} style={[globalStyle.button, globalStyle.rightSideButton]}>
                 <Text>Go back to Home</Text>
             </TouchableOpacity>
-            <Text>Hi, you are getting the child attendances</Text>
+            <Text style={globalStyle.title}>Attendances</Text>
             <View style={globalStyle.container}>
                 <DatePicker
 

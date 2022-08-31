@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.sql.Timestamp;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
@@ -39,11 +38,11 @@ public class AttendanceController {
 
     @GetMapping("/children/{date}")
     public Iterable<ChildAttendance> findAttendancesByData(@PathVariable("date") String date_string) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = formatter.parse(date_string);
-        Timestamp timestamp = new java.sql.Timestamp(date.getTime());
-        List<ChildAttendance> attendances = childAttendanceRepository.findChildAttendancesOuterJoin(timestamp);
-        List<Child> children = childRepository.findChildByIdIsNotInChildAttendance(timestamp);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(date_string, formatter);
+        //Timestamp timestamp = new java.sql.Timestamp(date.getTime());
+        List<ChildAttendance> attendances = childAttendanceRepository.findByPrimarykeyDate(date);
+        List<Child> children = childRepository.findChildByIdIsNotInChildAttendance(date);
         for(Child c : children){
             if(c != null){
                 attendances.add(new ChildAttendance(c, LocalDate.parse(date_string), null, null));
@@ -55,7 +54,6 @@ public class AttendanceController {
                 finalAttendances.add(ca); //Altrimenti modificava la stessa collection
             }
         }
-        System.out.println(finalAttendances);
         return finalAttendances;
         //return childAttendanceRepository.findChildAttendancesOuterJoin(timestamp);
     }

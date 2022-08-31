@@ -27,9 +27,7 @@ public class AllergiesController {
 
     @GetMapping("/allergies/{childId}")
     public List<Allergen> getAllergies(@PathVariable("childId") int childId){
-        System.out.println("Entered in method");
         List<ChildAllergen> childAllergens = childAllergenRepository.findByPrimarykeyIdChild(childId);
-        System.out.println("childAllergens: " + childAllergens);
         List<Allergen> allergensNames = new ArrayList<>();
         for(ChildAllergen allergen : childAllergens){
             allergensNames.add(allergenRepository.findById(allergen.getPrimarykey().getIdAllergen()).orElse(null));
@@ -40,10 +38,7 @@ public class AllergiesController {
     @PostMapping(path = "/allergies", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public ChildAllergen createNewDoctor(@RequestBody ChildAllergen childAllergen){
-        System.out.println("allergene dalla post: " + childAllergen);
         return childAllergenRepository.save(childAllergen);
-        //return doctorRepository.findById(4).orElse(null); //DEBUG
-
     }
 
     @GetMapping("/allergens")

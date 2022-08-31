@@ -40,7 +40,7 @@ public class SecurityConfig {
         return http
                 .authorizeRequests()
                 .antMatchers("/","/attendance").hasRole("USER") //Don't include the ROLE_ prefix on roles passed to hasRole(); it will be assumed by hasRole()
-                .antMatchers("/register").permitAll()
+                .antMatchers("/register", "/csrf").permitAll()
 
                 .and()
                 .formLogin()//Starts configuring custom login form

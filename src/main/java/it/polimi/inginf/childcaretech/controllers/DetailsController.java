@@ -5,6 +5,7 @@ import it.polimi.inginf.childcaretech.data.Contact;
 import it.polimi.inginf.childcaretech.repositories.ChildRepository;
 import it.polimi.inginf.childcaretech.repositories.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -39,4 +40,9 @@ public class DetailsController {
         return contactRepo.findByIdChild(childId);
     }
 
+    @PostMapping(value = "/contacts/add", consumes = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Contact createNewContact(@RequestBody Contact contact){
+        return contactRepo.save(contact);
+    }
 }

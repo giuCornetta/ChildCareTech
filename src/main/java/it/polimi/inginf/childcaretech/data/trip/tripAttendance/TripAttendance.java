@@ -16,4 +16,9 @@ import java.io.Serializable;
 public class TripAttendance implements Serializable {
     @EmbeddedId
     private TripAttendancePK primarykey;
+
+    public TripAttendance(int idTripStop, int idChild){
+        this.primarykey = new TripAttendancePK(idTripStop, idChild);
+    }
+
 }

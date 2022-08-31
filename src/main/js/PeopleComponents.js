@@ -32,13 +32,6 @@ const ParentPhones = ({numbers}) => {
 }
 
 const Doctor = (props) => {
-    /*let button =[];
-    if(props.bookable){ //FIXME ADD??
-        button = (<TouchableOpacity onPress={() => {window.open("/visits/book/" + props.doctor.id, "_self")}} style={[globalStyle.button, globalStyle.reminderButton, globalStyle.centerButton, style.bookVisit]}>
-            <Text>Book Appointment (WIP)</Text>
-        </TouchableOpacity>);
-        {button} //To add after type
-    }*/
     return (
         <View style={[globalStyle.container, style.container2]}><Text style={globalStyle.subTitle}>Doctor</Text>
             <Text>{props.doctor.name} {props.doctor.surname} ({props.doctor.cf})</Text>
@@ -61,16 +54,14 @@ const Staff = (props) => {
 
 function Contacts(props) {
 
-    if(props.contacts) {
         return (
             <View style={[globalStyle.container, style.container2]}>
                 <Text style={globalStyle.subTitle}>Contacts</Text>
-                <Text>{props.contacts.map((element, i) => {
+                {props.contacts.length>0? <Text>{props.contacts.map((element, i) => {
                     return ("Contact " + (i  + 1) + ": " + element.name + " " + element.surname + " ("+ element.cf + ")" + "\n" + "Phone: " + element.telephone);
-                })}</Text>
+                })}</Text> : <Text style={{color: "gray"}}>There are no contacts</Text>}
             </View>
         );
-    }
 }
 
 function Child(props) {
@@ -109,8 +100,8 @@ const Allergies = ({child, refresh}) => {
 
 
 
-    return (<View>
-        <Text style={[globalStyle.reminder, globalStyle.subTitle]}>Allergies</Text>
+    return (<View style={globalStyle.container}>
+        <Text style={[globalStyle.subTitle]}>Allergies</Text>
         {allergiesTag}
     </View>);
 }

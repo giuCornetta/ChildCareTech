@@ -179,7 +179,7 @@ const Stops = ({tripId, stops, refresh, csrfToken}) => {
         } else {
             return (<View style={globalStyle.container}>
                 <Text style={globalStyle.subTitle}>Stops</Text>
-                <Text>This trip does not have any stops</Text>
+                <Text style={{color: "gray"}}>This trip does not have any stops</Text>
                 <TouchableOpacity onPress={() => {setStopFormVisible(true)}} style={[globalStyle.button, globalStyle.centerButton]}>
                     <Text>Add Stops</Text>
                 </TouchableOpacity>

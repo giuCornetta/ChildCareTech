@@ -17,4 +17,9 @@ public class TripAttendancePK implements Serializable {
     private int idTripStop;
     @NotNull
     private int idChild;
+
+    public TripAttendancePK ( int idTripStop, int idChild){
+        this.idTripStop = idTripStop;
+        this.idChild = idChild;
+    }
 }

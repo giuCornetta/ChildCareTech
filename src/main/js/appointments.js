@@ -53,7 +53,7 @@ const Appointments = () => {
 }
 
 const BookVisit = ({setModalVisible, children, staff, refresh, csrfToken}) => {
-    const [selectedChild, setSelectedChild] = useState([]);
+    const [selectedChild, setSelectedChild] = useState(null);
     const [doctor, setDoctor] = useState(null);
     useEffect( () => {if(selectedChild) {
         Fetch("/appointments/doctor/" + selectedChild.value, setDoctor)();
@@ -98,7 +98,7 @@ const BookVisit = ({setModalVisible, children, staff, refresh, csrfToken}) => {
     };
 
     let doctorTag;
-    if(selectedChild){
+    if(doctor){
         doctorTag = (<Doctor doctor={doctor} key={0} />);
     }
 
@@ -107,6 +107,7 @@ const BookVisit = ({setModalVisible, children, staff, refresh, csrfToken}) => {
         console.log(formData);
         PostRequest("/appointments/book", formData, () => {}, csrfToken.token, refresh)();
         document.getElementById("appointment-form").reset();
+        setSelectedChild(null);
     };
 
     return (

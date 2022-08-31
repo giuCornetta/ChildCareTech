@@ -16,6 +16,7 @@ import java.time.LocalTime;
 @RequiredArgsConstructor //Generates a Constructor with required arguments
 @NoArgsConstructor /*Lombok @RequiredArgsConstructor will not generate any argument for: Non-final fields. Initialized final fields. static fields. Initialized non-null fields.*/
 @Entity //Needed for Spring JPA
+@Table(name = "CHILDATTENDANCE")
 public class ChildAttendance { //implementando serializable può essere inviato tramite JSON ??
 
     /*@NotNull
@@ -24,7 +25,7 @@ public class ChildAttendance { //implementando serializable può essere inviato 
     private Child child;*/
 
     @EmbeddedId
-    private ChildAttendancePK primaryKey;
+    private ChildAttendancePK primarykey;
 
     @ManyToOne
     @JoinColumn(name = "ID_Child", referencedColumnName = "ID")
@@ -48,6 +49,13 @@ public class ChildAttendance { //implementando serializable può essere inviato 
     @Nullable
     private LocalTime exitTime;
 
+    public ChildAttendance(Child child, LocalDate date, LocalTime entranceTime) {
+        this.child = child;
+        setPrimarykey(new ChildAttendancePK(child.getId(), date));
+        this.entranceTime = entranceTime;
+        this.exitTime = null;
+    }
+
     @Override
     public int hashCode() {
         return getClass().hashCode();
@@ -55,7 +63,7 @@ public class ChildAttendance { //implementando serializable può essere inviato 
 
     public ChildAttendance(Child child, LocalDate date, LocalTime entranceTime, LocalTime exitTime){
         setChild(child);
-        setPrimaryKey(new ChildAttendancePK(child.getId(), date));
+        setPrimarykey(new ChildAttendancePK(child.getId(), date));
         setEntranceTime(entranceTime);
         setExitTime(exitTime);
     }
