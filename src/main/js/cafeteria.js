@@ -79,7 +79,7 @@ const Cafeteria = () => {
             <Text>Go back to Home</Text>
         </TouchableOpacity>
         <form>
-            <input type="date" value={date.toISOString().substring(0, 10)} min="2022-08-25" max={maxDay.toISOString().substring(0, 10)} onChange={handleChange}/>
+            <input type="date" value={date.toISOString().substring(0, 10)} min="2022-08-25" max={maxDay.toISOString().substring(0, 10)} onChange={handleChange} onKeyDown="return false" required={true}/>
         </form>
         {ordersTag}
         <Ordered orders={orders}/>

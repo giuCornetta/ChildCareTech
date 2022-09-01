@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Fetch} from "./networkUtils";
 import {View, Text, StyleSheet, TouchableOpacity} from "react-native-web";
-import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import {globalStyle} from "./globalStyle";
 import {TableComponent} from "./table"; //FIXME for mobile use react-native-datepicker
@@ -12,8 +11,15 @@ const Attendance = () => {
     const [date, setDate] = useState(today);
     const [attendance, setAttendance] = useState(today);
     useEffect( Fetch ('/attendance/children/' + date.toISOString().substring(0, 10), setAttendance), [date]);
-    //Fetch ('/attendance/children/' + date.toISOString().substring(0, 10), setAttendance);
 
+    const handleChange = (e) => {
+        let date = new Date(e.target.value);
+        let minDate = new Date("2022-08-19");
+        let maxDate = new Date();
+        if(!(date < minDate || maxDate < date)){
+            setDate(date);
+        }
+    }
 
     return (
         <View style={globalStyle.container}>
@@ -22,7 +28,16 @@ const Attendance = () => {
             </TouchableOpacity>
             <Text style={globalStyle.title}>Attendances</Text>
             <View style={globalStyle.container}>
-                <DatePicker
+                <form>
+                    <input type="date" value={date.toISOString().substring(0, 10)} min="2022-08-19" max={today.toISOString().substring(0, 10)} onChange={handleChange} onKeyDown="return false" required={true}/>
+                </form>
+            </View>
+            <TableComponent style={style.table} nameColumns={["Name", "Surname", "Entrance Time", "Exit Time"]} list={attendance} propExtractor={propExtractor} onPress={null}/>
+        </View>
+    );
+}
+
+/*<DatePicker
 
                     style={ style.leftSide}
                     selected={date}
@@ -34,11 +49,7 @@ const Attendance = () => {
                     maxDate={today}
                     popperPlacement="bottom"
                 />
-            </View>
-            <TableComponent style={style.table} nameColumns={["Name", "Surname", "Entrance Time", "Exit Time"]} list={attendance} propExtractor={propExtractor} onPress={null}/>
-        </View>
-    );
-}
+* */
 
 
 const propExtractor = (attendance) => {
