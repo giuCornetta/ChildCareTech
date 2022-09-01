@@ -26,8 +26,8 @@ const TripDetails = ({trip}) => {
 
     useEffect(Fetch('/csrf', setCsrfToken), []);
     useEffect( Fetch('/trips/stops/' + trip.id, setTripStops), [refreshStops]);
-    useEffect( Fetch('/trips/registration/children/' + trip.id, setRegisteredChildren), [refreshChildren]);
-    useEffect( Fetch('/trips/registration/staff/' + trip.id, setRegisteredStaff), [refreshStaff]);
+    useEffect( Fetch('/trips/registration/children/' + trip.id, setRegisteredChildren), [refreshChildren, buses]);
+    useEffect( Fetch('/trips/registration/staff/' + trip.id, setRegisteredStaff), [refreshStaff, buses]);
     useEffect( Fetch('/trips/registration/children/' + trip.id + "/missing", setChildrenMissingRegistration), [refreshChildren]);
     useEffect( Fetch('/trips/registration/staff/' + trip.id + "/missing", setStaffMissingRegistration), [refreshStaff]);
     useEffect(Fetch('/trips/buses/' + trip.id, setBuses), [refreshBus]);

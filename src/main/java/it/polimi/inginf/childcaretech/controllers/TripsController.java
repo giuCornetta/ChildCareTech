@@ -99,7 +99,7 @@ public class TripsController {
         List<Bus> buses = busRepository.findByPrimarykeyIdTrip(tripId);
         List<List<TripRegistration>> listOfBusChild = new ArrayList<>();
         for(Bus bus : buses){
-            listOfBusChild.add(tripRegistrationRepository.findByBus(bus.getPrimarykey().getLicensePlate()));
+            listOfBusChild.add(tripRegistrationRepository.findByBusAndPrimarykeyIdTrip(bus.getPrimarykey().getLicensePlate(), tripId));
         }
         return listOfBusChild;
     }
@@ -109,7 +109,7 @@ public class TripsController {
         List<Bus> buses = busRepository.findByPrimarykeyIdTrip(tripId);
         List<List<SupervisorStaffTrip>> listOfBusStaff = new ArrayList<>();
         for(Bus bus : buses){
-            listOfBusStaff.add(supervisorStaffTripRepository.findByBus(bus.getPrimarykey().getLicensePlate()));
+            listOfBusStaff.add(supervisorStaffTripRepository.findByBusAndPrimarykeyIdTrip(bus.getPrimarykey().getLicensePlate(), tripId));
         }
         return listOfBusStaff;
     }

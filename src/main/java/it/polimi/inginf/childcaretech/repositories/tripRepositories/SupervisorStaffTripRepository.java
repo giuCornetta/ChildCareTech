@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface SupervisorStaffTripRepository extends CrudRepository<SupervisorStaffTrip, SupervisorStaffTripPK> {
 
-    List<SupervisorStaffTrip> findByBus(String bus);
+    List<SupervisorStaffTrip> findByBusAndPrimarykeyIdTrip(String bus, int idTrip);
 }

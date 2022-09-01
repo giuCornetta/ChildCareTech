@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TripRegistrationRepository extends CrudRepository<TripRegistration, TripRegistrationPK> {
-    List<TripRegistration> findByBus(String bus);
+    List<TripRegistration> findByBusAndPrimarykeyIdTrip(String bus, int idTrip);
     Optional<TripRegistration> findByPrimarykeyIdChildAndPrimarykeyIdTrip(int idChild, int idTrip);
 
 }

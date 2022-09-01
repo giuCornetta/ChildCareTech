@@ -42,7 +42,9 @@ public class AttendanceController {
         LocalDate date = LocalDate.parse(date_string, formatter);
         //Timestamp timestamp = new java.sql.Timestamp(date.getTime());
         List<ChildAttendance> attendances = childAttendanceRepository.findByPrimarykeyDate(date);
+        System.out.println("children present: " + attendances);
         List<Child> children = childRepository.findChildByIdIsNotInChildAttendance(date);
+        System.out.println("children absent: " + children);
         for(Child c : children){
             if(c != null){
                 attendances.add(new ChildAttendance(c, LocalDate.parse(date_string), null, null));
